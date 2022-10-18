@@ -3,12 +3,14 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DemoMaterialModule } from '../demo-material-module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { StarterComponent } from './starter.component';
-import { StarterRoutes } from './starter.routing';
+import { ArticlesRoutes } from './articles.routing';
 import { ArticlesComponent } from '../articles/articles.component';
 // import { BasicTableComponent } from './basic-table/basic-table.component';
 // import {MatTableDataSource, MatTableModule} from '@angular/material';
 import { MatTableDataSource,MatTableModule } from '@angular/material/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CdkTableModule} from '@angular/cdk/table';
+// import {DataSource} from '@angular/cdk/table';
 
 
 @NgModule({
@@ -16,13 +18,19 @@ import { MatTableDataSource,MatTableModule } from '@angular/material/table';
     CommonModule,
     DemoMaterialModule,
     FlexLayoutModule,
-    RouterModule.forChild(StarterRoutes),
+    RouterModule.forChild(ArticlesRoutes),
     // MatTableDataSource,
+    FormsModule,
+    ReactiveFormsModule,
+    CdkTableModule,
+    MatTableModule,
     
   ],
   declarations: [
-    StarterComponent
+    ArticlesComponent,
     // MatTableDataSource,
+    
+   
   ]
 })
-export class StarterModule {}
+export class ArticlesModule {}

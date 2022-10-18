@@ -59,7 +59,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     SharedModule,
     RouterModule.forRoot(AppRoutes),
-
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -68,7 +67,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         deps: [HttpClient]
       }
     })
-
   ],
   providers: [
     AuthGuard,

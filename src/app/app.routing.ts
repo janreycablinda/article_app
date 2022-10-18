@@ -10,11 +10,11 @@ export const AppRoutes: Routes = [
         component: FullComponent,
         canActivate: [AuthGuard],
         children: [
-            {
-                path: '',
-                redirectTo: '/login',
-                pathMatch: 'full'
-            },
+            // {
+            //     path: '',
+            //     redirectTo: '/login',
+            //     pathMatch: 'full'
+            // },
             {
                 path: 'material',
                 loadChildren: () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
@@ -23,7 +23,10 @@ export const AppRoutes: Routes = [
                 path: 'starter',
                 loadChildren: () => import('./starter/starter.module').then(m => m.StarterModule)
             },
-
+            {
+                path: 'articles',
+                loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule)
+            },
         ]
     },
     {

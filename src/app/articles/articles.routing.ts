@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
 
-// import { StarterComponent } from './starter.component';
-import { ArticlesComponent } from '../articles/articles.component';
+import { ArticlesComponent } from './articles.component';
 
-export const StarterRoutes: Routes = [
+export const ArticlesRoutes: Routes = [
   // {
   //   path: '',
   //   component: StarterComponent,
