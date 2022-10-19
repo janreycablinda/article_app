@@ -1,5 +1,6 @@
 export class Articles {
 }
+
 export interface Element {
     id: number,
     title: string,
@@ -7,9 +8,9 @@ export interface Element {
     longDescription: string,
     action: string,
   }
-// export interface Action {
-//   action: string,
-// } 
+
+export const lastAddedID: number = 0; 
+
 export const ELEMENT_DATA: Element[] = [
     // { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
     // { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
