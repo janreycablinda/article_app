@@ -14,6 +14,7 @@ import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { AppBreadcrumbComponent } from './layouts/full/breadcrumb/breadcrumb.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './demo-material-module';
+import { EffectsModule } from '@ngrx/effects'
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
@@ -26,7 +27,9 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './store/articles/articles.reducer';
+import { ArticlesEffects } from './store/articles/articles.effects';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -58,8 +61,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     HttpClientModule,
     SharedModule,
+    StoreModule.forRoot({ articles: reducer }),
+    EffectsModule.forRoot([ArticlesEffects]),
     RouterModule.forRoot(AppRoutes),
-
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -68,7 +72,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         deps: [HttpClient]
       }
     })
-
   ],
   providers: [
     AuthGuard,
