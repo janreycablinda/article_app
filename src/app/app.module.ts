@@ -47,7 +47,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SpinnerComponent,
     AppSidebarComponent,
     LoginComponent,
-    AppBreadcrumbComponent
+    AppBreadcrumbComponent,
+    
   ],
   imports: [
     BrowserModule,
