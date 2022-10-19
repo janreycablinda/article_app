@@ -1,0 +1,111 @@
+<div fxLayout="Column" fxLayoutGap="30px">
+  <mat-card>
+    <mat-card-content>
+      <!-- ================== Form Field =================== -->
+      <div class="formContainer">
+        <form [formGroup]="articleForm" (ngSubmit)="onAddArticle()">
+          <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input
+              matInput
+              formControlName="title"
+              placeholder="Ex. My Article"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Short Description</mat-label>
+            <input
+              matInput
+              formControlName="shortDescription"
+              placeholder="Ex. My article is all about animals"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Long Description</mat-label>
+            <textarea
+              matInput
+              formControlName="longDescription"
+              placeholder="Ex. This article talks about..."
+            ></textarea>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            type="submit"
+            color="primary"
+            [disabled]="!articleForm.valid"
+          >
+            Add
+          </button>
+        </form>
+      </div>
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
+        <!-- =================== Table =============== -->
+        <div class="responsive-table">
+          <mat-table #table [dataSource]="dataSource">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.id }}
+              </mat-cell>
+            </ng-container>
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.title }}
+              </mat-cell>
+            </ng-container>
+            <!-- Short Description Column -->
+            <ng-container matColumnDef="shortDescription">
+              <mat-header-cell *matHeaderCellDef>
+                Short Description
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.shortDescription }}
+              </mat-cell>
+            </ng-container>
+            <!-- Long Description Column -->
+            <ng-container matColumnDef="longDescription">
+              <mat-header-cell *matHeaderCellDef>
+                Long Description
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.longDescription }}
+              </mat-cell>
+            </ng-container>
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+              <mat-cell *matCellDef="let element; let i = index">
+                <div class="actionContainer">
+                  <span
+                    class="editButton"
+                    mat-raised-button
+                    color="primary"
+                    (click)="updateArticle(element.id)"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </span>
+                  <span
+                    class="deleteButton"
+                    mat-raised-button
+                    color="warn"
+                    (click)="deleteProduct(element.id)"
+                  >
+                    <mat-icon>delete_outline</mat-icon>
+                  </span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
