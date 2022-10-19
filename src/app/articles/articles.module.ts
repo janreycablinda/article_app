@@ -9,8 +9,12 @@ import { ArticlesComponent } from '../articles/articles.component';
 // import {MatTableDataSource, MatTableModule} from '@angular/material';
 import { MatTableDataSource,MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CdkTableModule} from '@angular/cdk/table';
-// import {DataSource} from '@angular/cdk/table';
+import { CdkTableModule } from '@angular/cdk/table';
+import { EditComponent } from './components/edit/edit.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DataSource } from '@angular/cdk/table';
+import { MatInputModule } from '@angular/material/input';
+import { DeleteComponent } from './components/delete/delete.component';
 
 
 @NgModule({
@@ -19,18 +23,21 @@ import { CdkTableModule} from '@angular/cdk/table';
     DemoMaterialModule,
     FlexLayoutModule,
     RouterModule.forChild(ArticlesRoutes),
-    // MatTableDataSource,
     FormsModule,
     ReactiveFormsModule,
     CdkTableModule,
     MatTableModule,
+    MatDialogModule,
+    MatInputModule,
     
   ],
   declarations: [
     ArticlesComponent,
-    // MatTableDataSource,
-    
-   
+    EditComponent,
+    DeleteComponent,
+  ],
+  bootstrap:[
+    ArticlesComponent
   ]
 })
 export class ArticlesModule {}

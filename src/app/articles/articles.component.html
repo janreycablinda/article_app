@@ -1,4 +1,3 @@
-
 <!-- ============================================================== -->
 <!-- Simple four boxes Row -->
 <!-- ============================================================== -->
@@ -12,7 +11,7 @@
                     <!-- column -->
                     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
                         Add Article
-                        <form [formGroup]="_articleForm" (ngSubmit)="onAddArticle()" class="m-t-20">
+                        <form [formGroup]="_articleForm" (ngSubmit)="action == 'add'?onAddArticle(): editFunction()" class="m-t-20">
                             <mat-form-field class="example-full-width">
                                 <input 
                                 matInput 
@@ -35,14 +34,17 @@
                                 formControlName="longDescription">
                                 </textarea>
                             </mat-form-field>
-                            <button type="submit" mat-raised-button color="primary">Add</button>
+
+                            <button *ngIf="action == 'add'" type="submit" mat-raised-button color="primary" >Add</button>
+                            <button *ngIf="action == 'update'" type="submit" mat-raised-button color="green" >Update</button>
                         </form>
                     </div>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
-    <div fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="70">
+
+    <div class="article-table" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="70">
         <mat-card>
             <mat-card-content>
                 <!-- Row -->
@@ -60,40 +62,62 @@
                         <div class="responsive-table">
                             <mat-table #table [dataSource]="dataSource">
         
-                                <!-- Position Column -->
+                                <!-- ID Column -->
                                 <ng-container matColumnDef="id">
                                     <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
                                     <mat-cell *matCellDef="let element">
-                                        <!-- <span class="header-label">ID:</span> -->
+                                      
                                         {{element.id}}
                                     </mat-cell>
                                 </ng-container>
-
+                                <!-- Title Column-->
                                 <ng-container matColumnDef="title">
                                     <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
                                     <mat-cell *matCellDef="let element">
-                                        <!-- <span class="header-label">ID:</span> -->
+                                      
                                         {{element.title}}
                                     </mat-cell>
                                 </ng-container>
         
-                                <!-- Name Column -->
+                                <!-- Short Description Column -->
                                 <ng-container matColumnDef="shortDescription">
                                     <mat-header-cell *matHeaderCellDef> Short Description </mat-header-cell>
                                     <mat-cell *matCellDef="let element">
-                                        <!-- <span class="header-label">Title:</span> -->
+                                
                                         {{element.shortDescription}}
                                     </mat-cell>
                                 </ng-container>
         
-                                <!-- Weight Column -->
+                                <!-- Long Description Column -->
                                 <ng-container matColumnDef="longDescription">
                                     <mat-header-cell *matHeaderCellDef> Long Description </mat-header-cell>
                                     <mat-cell *matCellDef="let element">
-                                        <!-- <span class="header-label">Weight:</span> -->
+                                 
                                         {{element.longDescription}}
                                     </mat-cell>
                                 </ng-container>
+                                
+                                <!-- Actions -->
+                                <ng-container matColumnDef="action">
+                                    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <button mat-icon-button (click)="openEditDialog(element)">
+                                            <mat-icon>edit</mat-icon>
+                                          </button>
+                                          <button mat-icon-button (click)="deleteArticle(element)">
+                                            <mat-icon>delete</mat-icon>
+                                          </button>
+                                        <!-- <button class="action-button" type="submit" mat-raised-button color="primary">Edit</button>
+                                        <button class="action-button" type="submit" mat-raised-button color="primary">Delete</button> -->
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- <ng-container matColumnDef="delete">
+                                    <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <button type="submit" mat-raised-button color="primary">Delete</button>
+                                    </mat-cell>
+                                </ng-container> -->
         
                                 <!-- Symbol Column -->
                                 <!-- <ng-container matColumnDef="symbol">
