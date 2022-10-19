@@ -49,7 +49,10 @@
                 <div fxLayout="row" fxLayoutWrap="wrap">
                     <!-- column -->
                     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
-                        Starter Page
+                        <!-- <div *ngFor="(let article of articles$ | async).articles">
+                            
+                        </div> -->
+                        
                         <!-- ================== Form Field =================== -->
                         <!-- <form class="m-t-20">
                             <mat-form-field class="example-full-width">
@@ -78,20 +81,20 @@
                                 </ng-container>
         
                                 <!-- Name Column -->
-                                <ng-container matColumnDef="shortDescription">
+                                <ng-container matColumnDef="short_description">
                                     <mat-header-cell *matHeaderCellDef> Short Description </mat-header-cell>
                                     <mat-cell *matCellDef="let element">
                                         <!-- <span class="header-label">Title:</span> -->
-                                        {{element.shortDescription}}
+                                        {{element.short_description}}
                                     </mat-cell>
                                 </ng-container>
         
                                 <!-- Weight Column -->
-                                <ng-container matColumnDef="longDescription">
+                                <ng-container matColumnDef="long_description">
                                     <mat-header-cell *matHeaderCellDef> Long Description </mat-header-cell>
                                     <mat-cell *matCellDef="let element">
                                         <!-- <span class="header-label">Weight:</span> -->
-                                        {{element.longDescription}}
+                                        {{element.long_description}}
                                     </mat-cell>
                                 </ng-container>
         

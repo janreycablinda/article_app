@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { Element } from './articles.model';
-import { DataSource } from '@angular/cdk/table';
+import { Articles, Element } from './articles.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as ArticleActions from '../store/articles/articles.actions'
 
 @Component({
   selector: 'app-articles',
@@ -10,17 +12,29 @@ import { DataSource } from '@angular/cdk/table';
   styleUrls: ['./articles.component.scss']
 })
 export class ArticlesComponent implements OnInit {
-
+  articles$!: Observable<any>;
+  articles!: Articles;
+  dataSource = new MatTableDataSource<Articles>();
+  
   constructor(
     private formBuilder: FormBuilder,
+    private store: Store<{ articles: [any] }>
   ) { }
 
   ngOnInit(): void {
-    this. articleForm();
+    this.store.dispatch(ArticleActions.loadArticlesRequestedArticless());
+
+    this.articles$ = this.store.select('articles');
+
+    this.articles$.subscribe(res => {
+      console.log(res);
+      this.dataSource = res.articles;
+    });
+    this.articleForm();
   }
 
-  displayedColumns = ['id', 'title', 'shortDescription', 'longDescription'];
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+  displayedColumns = ['id', 'title', 'short_description', 'long_description'];
+  
   _articleForm!: FormGroup; 
 
   articleForm(){
@@ -35,13 +49,19 @@ export class ArticlesComponent implements OnInit {
   onAddArticle(){
     console.log(this._articleForm.value); 
     var value = this._articleForm.value;
-    ELEMENT_DATA.push({
-      id: ELEMENT_DATA.length+1,
+    const data = {
       title: value.title,
-      shortDescription: value.shortDescription,
-      longDescription: value.longDescription,
-    });
-    this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+      short_description: value.shortDescription,
+      long_description: value.longDescription
+    };
+
+    this.store.dispatch(ArticleActions.addArticleRequestedAction({payload: data}));
+    // ELEMENT_DATA.push({
+    //   id: ELEMENT_DATA.length+1,
+    //   title: value.title,
+    //   shortDescription: value.shortDescription,
+    //   longDescription: value.longDescription,
+    // });
     this._articleForm.reset();
     this._articleForm.setErrors(null);
   }
