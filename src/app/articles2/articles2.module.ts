@@ -13,11 +13,11 @@ import {MatIconModule} from '@angular/material/icon';
 
 
 import { Articles2Component } from './articles2.component';
-import { EditArticleDialogComponent } from './edit-article-dialog/edit-article-dialog.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 
 @NgModule({
-  declarations: [Articles2Component, EditArticleDialogComponent, ],
+  declarations: [Articles2Component, DialogComponent, ],
 
   imports: [
     CommonModule,

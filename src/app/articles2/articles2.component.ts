@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Articles2 } from './articles2.model';
 import { MatDialog} from '@angular/material/dialog';
-import { EditArticleDialogComponent } from './edit-article-dialog/edit-article-dialog.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { Articles2Service } from './articles2.service';
 
 @Component({
@@ -13,24 +13,13 @@ import { Articles2Service } from './articles2.service';
 })
 export class Articles2Component implements OnInit {
 
-  constructor(private formBuilder: FormBuilder,
-              private editDialog: MatDialog,
+  constructor(private dialog: MatDialog,
               private articles2Service: Articles2Service) { }
 
   listArticles!: Articles2[];
 
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = ['id', 'title', 'shortDescription', 'longDescription', 'action'];
-
-  articleForm!: FormGroup
-
-  getArticleForm(){
-    this.articleForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      shortDescription: ['', Validators.required],
-      longDescription: ['', Validators.required]
-    })
-  }
 
   getAllArticle(){
     this.articles2Service.getArticle()
@@ -44,21 +33,6 @@ export class Articles2Component implements OnInit {
     })
   }
 
-  addArticle(){
-    if(this.articleForm.valid){
-      this.articles2Service.postArticle(this.articleForm.value)
-      .subscribe({
-        next: (res) => {
-          console.log(this.articleForm.value)
-          alert("Added Successfully!")
-        },
-        error: () => {
-          alert("Error!")
-        }
-      })
-    }
-  }
-
   deleteArticle(id: number){
       this.articles2Service.deleteArticle(id)
       .subscribe({
@@ -70,10 +44,14 @@ export class Articles2Component implements OnInit {
       })
   }
 
-  updateArticle(row: any){
-    this.editDialog.open(EditArticleDialogComponent,{
+  openDialog(){
+    this.dialog.open(DialogComponent,{})
+  }
+
+  editArticle(row: any){
+    this.dialog.open(DialogComponent, {
       data: row
-    }).afterClosed().subscribe((val) => {
+    }).afterClosed().subscribe(val => {
       if(val === 'update'){
         this.getAllArticle()
       }
@@ -81,7 +59,6 @@ export class Articles2Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getArticleForm();
     this.getAllArticle();
   }
 

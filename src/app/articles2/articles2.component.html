@@ -3,40 +3,14 @@
     <mat-card-content>
       <!-- ================== Form Field =================== -->
       <div class="formContainer">
-        <form [formGroup]="articleForm" (ngSubmit)="addArticle()">
-          <mat-form-field appearance="outline">
-            <mat-label>Title</mat-label>
-            <input
-              matInput
-              formControlName="title"
-              placeholder="Ex. My Article"
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Short Description</mat-label>
-            <input
-              matInput
-              formControlName="shortDescription"
-              placeholder="Ex. My article is all about animals"
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Long Description</mat-label>
-            <textarea
-              matInput
-              formControlName="longDescription"
-              placeholder="Ex. This article talks about..."
-            ></textarea>
-          </mat-form-field>
-          <button
-            mat-raised-button
-            type="submit"
-            color="primary"
-            [disabled]="!articleForm.valid"
-          >
-            Add
-          </button>
-        </form>
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+          (click)="openDialog()"
+        >
+          Add Article
+        </button>
       </div>
       <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
         <!-- =================== Table =============== -->
@@ -83,7 +57,7 @@
                     class="editButton"
                     mat-raised-button
                     color="primary"
-                    (click)="updateArticle(element)"
+                    (click)="editArticle(element)"
                   >
                     <mat-icon>edit</mat-icon>
                   </span>
