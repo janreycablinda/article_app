@@ -1,22 +1,3 @@
 {
-  "articles": [
-    {
-      "title": "hello",
-      "shortDescription": "sadasd",
-      "longDescription": "sadasdsad",
-      "id": 1
-    },
-    {
-      "title": "haloooo",
-      "shortDescription": "asdasd",
-      "longDescription": "asdasda",
-      "id": 4
-    },
-    {
-      "title": "marb@test.com",
-      "shortDescription": "321",
-      "longDescription": "321",
-      "id": 5
-    }
-  ]
+  "articles": []
 }

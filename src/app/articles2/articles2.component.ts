@@ -34,6 +34,8 @@ export class Articles2Component implements OnInit {
   }
 
   deleteArticle(id: number){
+    let del =  window.confirm("Are you sure you want to delete this article?")
+    if(del) {
       this.articles2Service.deleteArticle(id)
       .subscribe({
         next:(res) => {
@@ -42,6 +44,9 @@ export class Articles2Component implements OnInit {
         error : () => {
         }
       })
+    }else{
+      return false;
+    }
   }
 
   openDialog(){
