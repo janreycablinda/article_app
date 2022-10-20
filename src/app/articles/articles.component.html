@@ -35,7 +35,10 @@
                                 formControlName="longDescription">
                                 </textarea>
                             </mat-form-field>
-                            <button type="submit" mat-raised-button color="primary">Add</button>
+                            <button *ngIf="!formEdit" type="submit" mat-raised-button color="primary">Add</button>
+                            <button *ngIf="formEdit" type="submit" mat-raised-button color="primary">Update</button>
+                            <button *ngIf="formEdit" (click)="onCancelArticle()" mat-raised-button color="warn">Cancel</button>
+                            
                         </form>
                     </div>
                 </div>
@@ -99,13 +102,13 @@
                                 </ng-container>
         
                                 <!-- Symbol Column -->
-                                <!-- <ng-container matColumnDef="symbol">
-                                    <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+                                <ng-container matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                                     <mat-cell *matCellDef="let element">
-                                        <span class="header-label">Symbol:</span>
-                                        {{element.symbol}}
+                                        <button mat-mini-fab (click)="onEditArticle(element.id)" color="accent" mat-button>UPD</button>
+                                        <button mat-mini-fab (click)="onDeleteArticle(element.id)" color="warn" mat-button>DEL</button>
                                     </mat-cell>
-                                </ng-container> -->
+                                </ng-container>
     
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { Articles, Element } from './articles.model';
-import { Store } from '@ngrx/store';
+import { Element } from './articles.model';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as ArticleActions from '../store/articles/articles.actions'
+import { selectArticles } from '../store/articles/articles.selectors';
+import { Article } from '../store/articles.state';
 
 @Component({
   selector: 'app-articles',
@@ -13,8 +15,10 @@ import * as ArticleActions from '../store/articles/articles.actions'
 })
 export class ArticlesComponent implements OnInit {
   articles$!: Observable<any>;
-  articles!: Articles;
-  dataSource = new MatTableDataSource<Articles>();
+  articles!: Element;
+  formEdit: Boolean = false;
+  article!: Article;
+  dataSource = new MatTableDataSource<Element>();
   
   constructor(
     private formBuilder: FormBuilder,
@@ -22,29 +26,54 @@ export class ArticlesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.dispatch(ArticleActions.loadArticlesRequestedArticless());
+    
+    this.store.dispatch(ArticleActions.loadArticlesRequestedAction());
 
+    // this.articles$ = this.store.pipe(select(selectArticles))
     this.articles$ = this.store.select('articles');
+    // this.articles$ = this.store.select();
+    // this.articles$ = this.store.pipe(select(selectArticles))
 
     this.articles$.subscribe(res => {
       console.log(res);
       this.dataSource = res.articles;
+      if(this.formEdit){
+        console.log(this.formEdit);
+        console.log(true);
+        if(Object.keys(res.selected_article).length !== 0){
+          this._articleForm = this.formBuilder.group({
+            id:  new FormControl(res.selected_article.id),
+            title:  new FormControl(res.selected_article.title),
+            shortDescription: new FormControl(res.selected_article.short_description),
+            longDescription: new FormControl(res.selected_article.long_description),
+          });
+        }
+      }else{
+        console.log(false);
+        this._articleForm = this.formBuilder.group({
+          id:  new FormControl(""),
+          title:  new FormControl(""),
+          shortDescription: new FormControl(""),
+          longDescription: new FormControl(""),
+        });
+      }
+      
     });
     this.articleForm();
   }
 
-  displayedColumns = ['id', 'title', 'short_description', 'long_description'];
+  displayedColumns = ['id', 'title', 'short_description', 'long_description', 'actions'];
   
   _articleForm!: FormGroup; 
 
   articleForm(){
     this._articleForm = this.formBuilder.group({
+      id:  new FormControl(""),
       title:  new FormControl(""),
       shortDescription: new FormControl(""),
       longDescription: new FormControl(""),
      });
   }
-  
  
   onAddArticle(){
     console.log(this._articleForm.value); 
@@ -56,14 +85,34 @@ export class ArticlesComponent implements OnInit {
     };
 
     this.store.dispatch(ArticleActions.addArticleRequestedAction({payload: data}));
-    // ELEMENT_DATA.push({
-    //   id: ELEMENT_DATA.length+1,
-    //   title: value.title,
-    //   shortDescription: value.shortDescription,
-    //   longDescription: value.longDescription,
-    // });
+
     this._articleForm.reset();
     this._articleForm.setErrors(null);
+  }
+
+  onCancelArticle(){
+    this.formEdit = false;
+
+    this.store.dispatch(ArticleActions.deSelectArticleAction());
+    this._articleForm.reset();
+  }
+
+  onEditArticle(id: any){
+    this.store.dispatch(ArticleActions.loadSelectedArticleRequestedAction({id: id}));
+    this.formEdit = true;
+  }
+
+  onDeleteArticle(id: any){
+    if(confirm("Are you sure you want to delete this?")){
+      this.store.dispatch(ArticleActions.deleteArticleRequestedAction({id: id}));
+    }
+    // console.log(data);
+    // this._articleForm = this.formBuilder.group({
+    //   id:  new FormControl(data.id),
+    //   title:  new FormControl(data.title),
+    //   shortDescription: new FormControl(data.short_description),
+    //   longDescription: new FormControl(data.long_description),
+    //  });
   }
 
 }

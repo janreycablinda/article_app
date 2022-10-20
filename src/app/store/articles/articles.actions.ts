@@ -1,26 +1,38 @@
 import { createAction, props } from '@ngrx/store';
-import { ArticleDTO } from '../../_model/articles-dto';
-import {Article, Articles, ArticlesDTO, UpdateArticleDTO} from '../articles.state'
+import {Article, Articles, ArticleDTO, ArticlesDTO, UpdateArticleDTO} from '../articles.state'
 import { AddArticleDTO } from '../../_model/add_articles-dto';
 
-export const loadArticlesRequestedArticless = createAction(
+export const loadArticlesRequestedAction = createAction(
   '[Articles] Load Articles Requested'
 );
 
 export const loadArticlesSucceededAction = createAction(
   '[Articles] Load Succedded Articles',
-  // props<{ payload: ArticlesDTO }>()
   props<{ payload: Article[] }>()
 );
 
 export const addArticleRequestedAction = createAction(
   '[Articles] Add Requested Article',
-  props<{ payload: ArticleDTO }>()
+  props<{ payload: Article }>()
 );
 
 export const addArticleSucceddedAction = createAction(
   '[Articles] Add Succeeded Article',
   props<{ payload: ArticleDTO }>()
+);
+
+export const loadSelectedArticleRequestedAction = createAction(
+  '[Articles] Load Selected Article Requested',
+  props<{ id: number }>()
+);
+
+export const loadSelectedArticleSucceededAction = createAction(
+  '[Articles] Load Selected Succedded Article',
+  props<{ payload: Article }>()
+);
+
+export const deSelectArticleAction = createAction(
+  '[Articles] deselect Succedded Article'
 );
 
 export const updateArticleRequestedAction = createAction(
@@ -35,12 +47,12 @@ export const updateArticleSuccededAction = createAction(
 
 export const deleteArticleRequestedAction = createAction(
   '[Articles] Delete Requested Article',
-  props<{ payload: number }>()
+  props<{ id: number }>()
 );
 
 export const deleteArticleSucceededAction = createAction(
-  '[Articles] Delete Requested Article',
-  props<{ payload: any }>()
+  '[Articles] Delete Succeeded Article',
+  props<{ id: number }>()
 );
 
 export const articlesArticlessSucceededAction = createAction(

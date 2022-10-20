@@ -4,8 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import * as ArticleAction  from './articles.actions'
-import { Articles, Article, ArticlesDTO } from '../articles.state'
-import { ArticleDTO } from 'src/app/_model/articles-dto';
+import { Article, ArticlesDTO, ArticleDTO } from '../articles.state'
 import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 @Injectable()
@@ -17,14 +16,12 @@ export class ArticlesEffects {
 
   constructor(private actions$: Actions, private http: HttpClient) {}
 
-  loadArticleEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(ArticleAction.loadArticlesRequestedArticless),
+  loadArticlesEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(ArticleAction.loadArticlesRequestedAction),
     mergeMap(res =>{
-      return this.http.get<Article[]>('http://127.0.0.1:8000/api/articles').pipe(
-          // switchMap((data: ArticlesDTO) => {
+      return this.http.get<Article[]>('/api/articles').pipe(
           switchMap((data: Article[]) => {
-            console.log('effect', data)
-
+            // console.log('effect', data)
             return [
               ArticleAction.loadArticlesSucceededAction({ payload: data })
             ]
@@ -40,10 +37,28 @@ export class ArticlesEffects {
   addArticleEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ArticleAction.addArticleRequestedAction),
     mergeMap((action) =>{
-      return this.http.post<Article>('http://127.0.0.1:8000/api/articles', action.payload).pipe(
-          switchMap((data: Article) => [
+      return this.http.post<Article>('/api/articles', action.payload).pipe(
+          switchMap((data: ArticleDTO) => [
             ArticleAction.addArticleSucceddedAction({ payload: data })
           ]),
+          catchError((error: Error) => {
+            return of(ArticleAction.articlesArticlessFailure({ error: error }));
+          })
+        )
+      }
+    )
+  ));
+
+  loadSelectedArticlesEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(ArticleAction.loadSelectedArticleRequestedAction),
+    mergeMap(action =>{
+      return this.http.get<Article>(`/api/articles/${action.id}`).pipe(
+          switchMap((data: Article) => {
+            
+            return [
+              ArticleAction.loadSelectedArticleSucceededAction({ payload: data })
+            ]
+          }),
           catchError((error: Error) => {
             return of(ArticleAction.articlesArticlessFailure({ error: error }));
           })
@@ -55,7 +70,7 @@ export class ArticlesEffects {
   updateArticleActionEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ArticleAction.updateArticleRequestedAction),
     mergeMap(action => {
-      return this.http.put<Article>(`http://127.0.0.1:8000/api/articles/${action.payload.articleId}`, action.payload.updateArticleDTO).pipe(
+      return this.http.put<Article>(`/api/articles/${action.payload.articleId}`, action.payload.updateArticleDTO).pipe(
           switchMap((data: ArticleDTO) => [
             ArticleAction.updateArticleSuccededAction({ payload: data })
           ]),
@@ -70,9 +85,10 @@ export class ArticlesEffects {
   deleteArticleActionEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ArticleAction.deleteArticleRequestedAction),
     mergeMap(action =>{
-      return this.http.delete<Article>(`http://127.0.0.1:8000/api/articles/${action.payload}`).pipe(
+      console.log(action);
+      return this.http.delete<number>(`/api/articles/${action.id}`).pipe(
           switchMap(res => [
-            ArticleAction.deleteArticleSucceededAction({ payload: res })
+            ArticleAction.deleteArticleSucceededAction({ id: res })
           ]),
           catchError((error: Error) => {
             return of(ArticleAction.articlesArticlessFailure({ error: error }));

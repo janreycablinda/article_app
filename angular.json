@@ -100,7 +100,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "project:build"
+            "browserTarget": "project:build",
+            "proxyConfig": "./cp-proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -162,6 +163,7 @@
   },
   "defaultProject": "project",
   "cli": {
-    "analytics": "9301ccc3-a05e-44c2-a9df-b081f23d06e3"
+    "analytics": "9301ccc3-a05e-44c2-a9df-b081f23d06e3",
+    "defaultCollection": "@ngrx/schematics"
   }
 }

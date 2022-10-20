@@ -1,24 +1,23 @@
-export interface Articles {
-    articles: Article[]
-}
-
 export interface Article {
-    id: any,
+    id?: any,
     title: string,
     short_description: string,
     long_description: string
 }
 
-
-export class ArticleDTO {
-    id: any;
-    title: any;
-    short_description: any;
-    long_description: any;
+export interface ArticleDTO {
+    id?: any,
+    title: string,
+    short_description: string,
+    long_description: string
 };
 
+export interface Articles {
+    articles: Article[]
+}
+
 export interface ArticlesDTO {
-    articles: ArticleDTO[]
+    articles: Article[]
 }
 
 export class UpdateArticleDTO {
@@ -27,3 +26,15 @@ export class UpdateArticleDTO {
     short_description!: string;
     long_description!: string;
 };
+
+export interface ArticlesState {
+    articles: Article[],
+    selected_article?: Article
+}
+
+export interface ArticleState {
+    id: number,
+    title: string,
+    short_description: string,
+    long_description: string
+}
