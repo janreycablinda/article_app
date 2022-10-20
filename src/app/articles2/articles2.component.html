@@ -3,7 +3,7 @@
     <mat-card-content>
       <!-- ================== Form Field =================== -->
       <div class="formContainer">
-        <form [formGroup]="articleForm" (ngSubmit)="onAddArticle()">
+        <form [formGroup]="articleForm" (ngSubmit)="addArticle()">
           <mat-form-field appearance="outline">
             <mat-label>Title</mat-label>
             <input
@@ -77,13 +77,13 @@
             <!-- Action Column -->
             <ng-container matColumnDef="action">
               <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-              <mat-cell *matCellDef="let element; let i = index">
+              <mat-cell *matCellDef="let element">
                 <div class="actionContainer">
                   <span
                     class="editButton"
                     mat-raised-button
                     color="primary"
-                    (click)="updateArticle(element.id)"
+                    (click)="updateArticle(element)"
                   >
                     <mat-icon>edit</mat-icon>
                   </span>
@@ -91,7 +91,7 @@
                     class="deleteButton"
                     mat-raised-button
                     color="warn"
-                    (click)="deleteProduct(i)"
+                    (click)="deleteArticle(element.id)"
                   >
                     <mat-icon>delete_outline</mat-icon>
                   </span>

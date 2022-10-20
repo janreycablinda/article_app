@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Articles2 } from './articles2.model';
 import { MatDialog} from '@angular/material/dialog';
 import { EditArticleDialogComponent } from './edit-article-dialog/edit-article-dialog.component';
+import { Articles2Service } from './articles2.service';
 
 @Component({
   selector: 'app-articles2',
@@ -13,11 +14,12 @@ import { EditArticleDialogComponent } from './edit-article-dialog/edit-article-d
 export class Articles2Component implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
-              private editDialog: MatDialog) { }
+              private editDialog: MatDialog,
+              private articles2Service: Articles2Service) { }
 
   listArticles!: Articles2[];
 
-  dataSource: any;
+  dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = ['id', 'title', 'shortDescription', 'longDescription', 'action'];
 
   articleForm!: FormGroup
@@ -30,48 +32,59 @@ export class Articles2Component implements OnInit {
     })
   }
 
-  // fetchArticle(){
-  //   this.dataSource = new MatTableDataSource<Articles2>(ARTICLE_DATA)
-  // }
+  getAllArticle(){
+    this.articles2Service.getArticle()
+    .subscribe({
+      next: (res) => {
+        this.dataSource = new MatTableDataSource(res);
+      },
+      error: () => {
 
-  // getArticle(){
-  //   let articleData = [ARTICLE_DATA];
-  //   console.log(articleData)
-  // }
-
-  onAddArticle(){
-    console.log(this.articleForm.value)
-    this.listArticles.push({
-      id: this.listArticles.length+1,
-      title: this.articleForm.value.title,
-      shortDescription: this.articleForm.value.shortDescription,
-      longDescription: this.articleForm.value.longDescription,
+      }
     })
-    this.dataSource = new MatTableDataSource<Articles2>()
-    console.log(this.dataSource)
   }
 
-  deleteProduct(index: number, id: number){
-    let data = [...this.listArticles]
-    console.log(data)
-    data.splice(index, 1)
+  addArticle(){
+    if(this.articleForm.valid){
+      this.articles2Service.postArticle(this.articleForm.value)
+      .subscribe({
+        next: (res) => {
+          console.log(this.articleForm.value)
+          alert("Added Successfully!")
+        },
+        error: () => {
+          alert("Error!")
+        }
+      })
+    }
+  }
 
+  deleteArticle(id: number){
+      this.articles2Service.deleteArticle(id)
+      .subscribe({
+        next:(res) => {
+          console.log(res)
+        },
+        error : () => {
+        }
+      })
   }
 
   updateArticle(row: any){
     this.editDialog.open(EditArticleDialogComponent,{
       data: row
+    }).afterClosed().subscribe((val) => {
+      if(val === 'update'){
+        this.getAllArticle()
+      }
     })
   }
 
   ngOnInit(): void {
     this.getArticleForm();
-    // this.getArticle()
+    this.getAllArticle();
   }
 
 }
-
-
-
-
+ 
 

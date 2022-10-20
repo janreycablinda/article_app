@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Articles2Service } from '../articles2.service';
 
 @Component({
   selector: 'app-edit-article-dialog',
@@ -11,7 +12,8 @@ export class EditArticleDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public editData: any,
               private dialogRef: MatDialogRef<EditArticleDialogComponent>,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private artices2Service: Articles2Service) { }
 
   editArticleForm!: FormGroup;
 
@@ -29,10 +31,19 @@ export class EditArticleDialogComponent implements OnInit {
   }
 
   updateArticle(){
-    this.dialogRef.close('update')
+    this.artices2Service.updateArticle(this.editArticleForm.value, this.editData.id)
+    .subscribe({
+      next: (res) => {
+        this.dialogRef.close('update')
+      },
+      error: () => {
+
+      }
+    })
   }
 
   ngOnInit(): void {
+    this.getEditArticleForm();
   }
 
 }
