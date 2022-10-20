@@ -76,18 +76,28 @@ export class ArticlesComponent implements OnInit {
   }
  
   onAddArticle(){
-    console.log(this._articleForm.value); 
-    var value = this._articleForm.value;
-    const data = {
-      title: value.title,
-      short_description: value.shortDescription,
-      long_description: value.longDescription
-    };
+    if(!this.formEdit){
+      var value = this._articleForm.value;
+      const data = {
+        title: value.title,
+        short_description: value.shortDescription,
+        long_description: value.longDescription
+      };
 
-    this.store.dispatch(ArticleActions.addArticleRequestedAction({payload: data}));
+      this.store.dispatch(ArticleActions.addArticleRequestedAction({payload: data}));
 
-    this._articleForm.reset();
-    this._articleForm.setErrors(null);
+      this._articleForm.reset();
+      this._articleForm.setErrors(null);
+    }else{
+      const data = {
+        id: value.id,
+        title: value.title,
+        short_description: value.shortDescription,
+        long_description: value.longDescription
+      };
+      this.store.dispatch(ArticleActions.updateArticleRequestedAction({payload: {articleId: data.id, updateArticleDTO: data }}));
+    }
+    
   }
 
   onCancelArticle(){

@@ -53,8 +53,8 @@ export const articleReducer = createReducer(
   }),
   on(articlesAction.updateArticleSuccededAction, (state: ArticlesState, { payload }) =>{
     let nextState = cloneDeep(state.articles);
-    const index = state.articles.findIndex(article => article.id === payload.id)
-    nextState.splice(index, 1);
+    // const index = state.articles.findIndex(article => article.id === payload.articleId)
+    // nextState.splice(index, payload.UpdateArticleDTO);
     return { ...state, nextState };
   }),
   on(articlesAction.deleteArticleRequestedAction, (state: ArticlesState, { id }) =>{
