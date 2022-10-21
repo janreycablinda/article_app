@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,9 +11,18 @@ export class Articles2Service {
 
   constructor(private http: HttpClient) { }
 
+  private refreshRequired = new Subject<void>();
+
+  autoFetchArticle(){
+    return this.refreshRequired;
+  }
+
   postArticle(data: any){
     let post$ = this.http.post<any>(environment.apiUrl + `articles`, data)
-    return post$;
+    return post$.pipe(tap(() => {
+      this.refreshRequired.next()
+    })
+    )
   }
 
   getArticle(){

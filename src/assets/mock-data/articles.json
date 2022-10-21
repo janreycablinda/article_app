@@ -1,3 +1,28 @@
 {
-  "articles": []
+  "articles": [
+    {
+      "title": "mj",
+      "shortDescription": "asdassdf",
+      "longDescription": "dasd",
+      "id": 5
+    },
+    {
+      "title": "asdas",
+      "shortDescription": "das",
+      "longDescription": "dasd",
+      "id": 7
+    },
+    {
+      "title": "asdas",
+      "shortDescription": "das",
+      "longDescription": "dasd",
+      "id": 8
+    },
+    {
+      "title": "asdasd",
+      "shortDescription": "asdasd",
+      "longDescription": "asdasd",
+      "id": 9
+    }
+  ]
 }

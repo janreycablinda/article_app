@@ -1,7 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
+
+import { Articles2Service } from '../../articles2.service';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Articles2Service } from '../../articles2.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-dialog',
@@ -13,7 +17,8 @@ export class DialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public editData: any,
               private dialogRef: MatDialogRef<DialogComponent>,
               private formBuilder: FormBuilder,
-              private articles2Service: Articles2Service) { }
+              private articles2Service: Articles2Service,
+              private snackBar: MatSnackBar) { }
 
   articleForm!: FormGroup;
   actionBtn: string = 'Save';
@@ -40,11 +45,10 @@ export class DialogComponent implements OnInit {
       this.articles2Service.postArticle(this.articleForm.value)
       .subscribe({
         next: (res) => {
-          console.log(this.articleForm.value)
-          alert("Added Successfully!")
+          this.openSnackBar('Added Successfully!', 'Close')
         },
-        error: () => {
-          alert("Error while adding!")
+        error: (err) => {
+          this.openSnackBar('Error while adding!', 'Close')
           }
         })
       }
@@ -57,13 +61,25 @@ export class DialogComponent implements OnInit {
     this.articles2Service.updateArticle(this.articleForm.value, this.editData.id)
     .subscribe({
       next: (res) => {
-        alert("Updated Successfully!")
+        this.openSnackBar('Updated Successfully!', 'Close')
         this.dialogRef.close('update')
       },
-      error: () => {
-        alert("Error while updating!")
+      error: (err) => {
+        this.openSnackBar('Error while updating!', 'Close')
       }
     })
+  }
+
+  openSnackBar(message: string, action: string) {
+   let snackBarRef = this.snackBar.open(message, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 5000
+    })
+
+    // snackBarRef.afterDismissed().subscribe(() => {
+    //   window.location.reload()
+    // })
   }
 
   ngOnInit(): void {

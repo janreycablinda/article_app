@@ -11,15 +11,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-
-
 import { Articles2Component } from './articles2.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { NotificationComponent } from './components/notification/notification.component';
 
 
 @NgModule({
-  declarations: [Articles2Component, DialogComponent, NotificationComponent, ],
+  declarations: [Articles2Component, DialogComponent, ],
 
   imports: [
     CommonModule,

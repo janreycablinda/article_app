@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
-import { Articles2 } from './articles2.model';
-import { MatDialog} from '@angular/material/dialog';
-import { DialogComponent } from './components/dialog/dialog.component';
+
 import { Articles2Service } from './articles2.service';
+import { Articles2 } from './articles2.model';
+import { DialogComponent } from './components/dialog/dialog.component';
+
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-articles2',
@@ -41,9 +42,10 @@ export class Articles2Component implements OnInit {
         next:(res) => {
           console.log(res)
         },
-        error : () => {
+        error : (err) => {
         }
       })
+      window.location.reload()
     }else{
       return false;
     }
@@ -65,8 +67,14 @@ export class Articles2Component implements OnInit {
 
   ngOnInit(): void {
     this.getAllArticle();
+    this.articles2Service.autoFetchArticle().subscribe({
+      next:(res) => {
+        this.getAllArticle()
+      },
+      error : (err) => {
+      }
+    })
   }
-
 }
  
 
