@@ -10,6 +10,7 @@ import { DemoMaterialModule } from '../demo-material-module';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { Articles2Component } from './articles2.component';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -30,6 +31,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatInputModule,
     MatIconModule,
     MatSnackBarModule,
+    MatPaginatorModule,
   ]
 })
 export class Articles2Module {}
