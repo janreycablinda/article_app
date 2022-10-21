@@ -5,15 +5,23 @@ import { ELEMENT_DATA } from './articles.model';
 import { Element } from './articles.model';
 import { environment } from 'src/environments/environment';
 import { NavigationStart, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticlesService {
 
+  private subject = new Subject<any>();
+  private keepAfterNavigationChange = false;
+  article!: Element;
+  articleID!: string;
+  private baseUrl = environment.baseUrl + "/articles";
+
   constructor(
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private _snackBar: MatSnackBar) {
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         if (this.keepAfterNavigationChange) {
@@ -27,12 +35,6 @@ export class ArticlesService {
     });
   }
 
-  private subject = new Subject<any>();
-  private keepAfterNavigationChange = true;
-  article!: Element;
-  articleID!: string;
-  private baseUrl = environment.baseUrl + "/articles";
-  
   deleteArticle() {
     const index: number = ELEMENT_DATA.indexOf(this.article);
     if (index !== -1) {
@@ -63,33 +65,57 @@ export class ArticlesService {
     return response$;
   }
 
-  // success(message: string, keepAfterNavigationChange = true) {
-  //   this.keepAfterNavigationChange = keepAfterNavigationChange;
-  //   this.subject.next({ type: 'success', text: message }) ;
-  // }
+  openSnackBar(message:string) {
+    this._snackBar.open(message, 'Great', {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['mat-toolbar', 'mat-accent']
+    });
+  }
 
-  // error(message: string, keepAfterNavigationChange = true) {
-  //   this.keepAfterNavigationChange = keepAfterNavigationChange;
-  //   this.subject.next({ type: 'error', text: message });
-  // }
+  successAlertMessage(message: string = "Success Message", keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next({ type: 'success', text: message }) ;
+    setTimeout(() => {
+      this.clearAlertMessage();
+      window.location.reload();
+    }, 2000);
+  }
 
-  // warning(message: string, keepAfterNavigationChange = true) {
-  //   this.keepAfterNavigationChange = keepAfterNavigationChange;
-  //   this.subject.next({ type: 'warning', text: message });
-  // }
+  errorAlertMessage(message: string = "Error Message", keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next({ type: 'error', text: message });
+    setTimeout(() => {
+      this.clearAlertMessage();
+      window.location.reload();
+    }, 2000);
+  }
 
-  // info(message: string, keepAfterNavigationChange = true) {
-  //   this.keepAfterNavigationChange = keepAfterNavigationChange;
-  //   this.subject.next({ type: 'info', text: message });
-  // }
+  warningAlertMessage(message: string = "Warning Message", keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next({ type: 'warning', text: message });
+    setTimeout(() => {
+      this.clearAlertMessage();
+      window.location.reload();
+    }, 2000);
+  }
 
-  // clearAlertMessage() {
-  //   this.subject.next();
-  // }
+  infoAlertMessage(message: string = "Info Message", keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next({ type: 'info', text: message });
+    setTimeout(() => {
+      this.clearAlertMessage();
+      window.location.reload();
+    }, 2000);
+  }
 
-  // getMessage(): Observable<any> {   
-  //   return this.subject.asObservable();
-  // }
+  clearAlertMessage() {
+    this.subject.next();
+  }
+
+  getMessage(): Observable<any> {   
+    return this.subject.asObservable();
+  }
 
 }
 

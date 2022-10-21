@@ -9,43 +9,39 @@ import { ELEMENT_DATA, lastAddedID } from './articles.model';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NavigationStart, Router } from '@angular/router';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar'
-
+import { AlertComponent } from './components/alert/alert.component';
 
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss']
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit, OnDestroy {
  
-  // private subscription: Subscription;
+  private subscription: Subscription;
+  fetch?: Subscription;
+  create?: Subscription;
+  update?: Subscription;
+  delete?: Subscription;
   action: string = "add";
   updatedArticle!: Element;
-  displayedColumns = ['id', 'title', 'shortDescription', 'longDescription', 'action'];
+  displayedColumns = ['id', 'title', 'description', 'action'];
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   _articleForm!: FormGroup;
   submitted = false; 
   lastID =  0;
   message: any="";
-  fetch?: Subscription;
-  create?: Subscription;
-  update?: Subscription;
+
 
   constructor(
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     public articlesService: ArticlesService,
     private http: HttpClient,
-    private router: Router,
-    private _snackBar: MatSnackBar) {
-      // this.subscription = articlesService.getMessage().subscribe(message => {
-      //   this.message = message;
-      // });
+    private router: Router) {
+      this.subscription = articlesService.getMessage().subscribe(message => {
+        this.message = message;
+      });
     }
 
   ngOnInit(): void {
@@ -58,26 +54,24 @@ export class ArticlesComponent implements OnInit {
     });
   }
 
-  // ngOnDestroy(): void {
-  //   this.fetch?.unsubscribe;
-  //   this.create?.unsubscribe;
-  //   this.update?.unsubscribe;
-  // }
+  ngOnDestroy(): void {
+    this.fetch?.unsubscribe;
+    this.create?.unsubscribe;
+    this.update?.unsubscribe;
+    this.subscription.unsubscribe();
+    this.delete?.unsubscribe();
+  }
 
   articleForm(data: Element){
     this._articleForm = this.formBuilder.group({
       title:  new FormControl(data.title, Validators.required),
       shortDescription: new FormControl(data.shortDescription, Validators.required),
       longDescription: new FormControl(data.longDescription, Validators.required),
-      // title:  new FormControl(""),
-      // shortDescription: new FormControl(""),
-      // longDescription: new FormControl(""),
      });
   }
 
 
   openEditDialog(id: string, article: Element){
-    // this.articleID = id
     this.articlesService.articleID = id;
     this.articlesService.article = article;
     this.action = "update"
@@ -85,19 +79,8 @@ export class ArticlesComponent implements OnInit {
   }
 
   editFunction(){
-    console.log("on update excecuted")
-   
     var value = this._articleForm.value;
-    // var update = this.updatedArticle
-    // let index = ELEMENT_DATA.indexOf(update);
-    // ELEMENT_DATA[index] = {
-    //   title: value.title,
-    //   shortDescription: value.shortDescription,
-    //   longDescription: value.longDescription,
-    // };
-    this.articlesService.update(this.articlesService.articleID, value).subscribe((response)=>{
-      console.log("Update response ========= ", response, " ==========")
-    })
+    this.articlesService.update(this.articlesService.articleID, value).subscribe((response)=>console.log("Update response", response));
     this.fetchData();
     this.action = "add";
     this._articleForm.reset();
@@ -106,20 +89,16 @@ export class ArticlesComponent implements OnInit {
  
   onAddArticle(){
     var value = this._articleForm.value;
+    var service = this.articlesService;
     if(this._articleForm.valid){
-      console.log("============= ADDED ==========")
-      // this.create = 
-      this.articlesService.createArticle(value).subscribe((response)=>{
-        console.log("add resposne ===== ", response, "======")
-        this.openSnackBar("Added Successfully");
-      });
-      // this.openSnackBar("Added Successfully");
+      service.createArticle(value).subscribe((response)=>console.log("OnAdd Response",response));
+      service.successAlertMessage(`"${value.title}" Added successfuly.`);
     }
+
     this.fetchData();
     this.submitted = false;
     this._articleForm.reset();
     this._articleForm.setErrors(null);
-    
   }
 
   fetchData(): void{
@@ -132,53 +111,32 @@ export class ArticlesComponent implements OnInit {
   deleteArticle(articleID: string) {
     var deleteDialog = this.dialog.open(DeleteDialogComponent, {width: '300px'});
     this.articlesService.articleID = articleID;
-    deleteDialog.afterClosed().subscribe(result => {
-      this.fetchData();
-      
-    });
-    
+    deleteDialog.afterClosed().subscribe((_) => this.fetchData());
   }
 
-  openSnackBar(message:string) {
-    this._snackBar.open(message, 'Great', {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: ['mat-toolbar', 'mat-accent']
-    });
+  onCancelUpdate(){
+    this.action = "add";
+    location.reload();
   }
-  
-//   ngOnDestroy(): void {
-//     // unsubscribe on destroy to prevent memory leaks
-//     this.subscription.unsubscribe();
-//   }
-//   closeMessage() {
-//     this.articlesService.clearAlertMessage();    
-  
-// }
+
+  // getSuccessMessage(textMessage: string = "Success") {
+  //   this.articlesService.success(textMessage);
+  // }
+  // getWarningMessage() {
+  //   this.articlesService.warning("Oh !!!! Plz check double");
+  // }
+  // getErrorMessage() {
+  //   this.articlesService.error("Ooopss !!!! Something went wrong");
+  // }
+  // getInfoMessage() {
+  //   this.articlesService.info("Yepp !!! This is a important information");
+  // }
+  // clearMessage() {
+  //   this.articlesService.clearAlertMessage();
+  // }
 
 }
 
 
 
 
-
-
-
-
-
-
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-articles',
-//   templateUrl: './articles.component.html',
-//   styleUrls: ['./articles.component.scss']
-// })
-// export class ArticlesComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }

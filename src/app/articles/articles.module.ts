@@ -33,6 +33,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DataSource } from '@angular/cdk/table';
 import { MatInputModule } from '@angular/material/input';
 import { AlertComponent } from './components/alert/alert.component';
+import { MatButtonModule} from '@angular/material/button';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 
 
@@ -48,11 +50,13 @@ import { AlertComponent } from './components/alert/alert.component';
     MatTableModule,
     MatDialogModule,
     MatInputModule,
+    MatButtonModule,
     
   ],
   declarations: [
     ArticlesComponent,
     AlertComponent,
+    DeleteDialogComponent,
   ],
   bootstrap:[
     ArticlesComponent

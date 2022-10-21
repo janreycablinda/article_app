@@ -2,7 +2,8 @@
 <div mat-dialog-content>
   Would you like to delete this article?
 </div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button mat-dialog-close cdkFocusInitial (click)="deleteArticle()">Delete</button>
+<br/>
+<div class="delete-action" mat-dialog-actions>
+    <button class="delete-action-buttons" mat-raised-button color="basic" mat-dialog-close>Cancel</button>
+    <button class="delete-action-buttons" mat-raised-button color="warn" mat-dialog-close (click)="deleteArticle()" >Delete</button>
 </div>
