@@ -1,0 +1,139 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+    <!-- column -->
+    <div fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="30">
+        <mat-card>
+            <mat-card-content>
+                <!-- Row -->
+                <div fxLayout="row" fxLayoutWrap="wrap">
+                    <!-- column -->
+                    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
+                        Add Article
+                        <form [formGroup]="_articleForm" (ngSubmit)="action == 'add'?onAddArticle(): editFunction()" class="m-t-20">
+                            <mat-form-field class="example-full-width">
+                                <input 
+                                matInput 
+                                placeholder="Title" 
+                                formControlName="title">
+                            </mat-form-field>
+
+                            <mat-form-field class="example-full-width">
+                                <input 
+                                matInput 
+                                placeholder="Short Description" 
+                                formControlName="shortDescription">
+                            </mat-form-field>
+                
+                            <mat-form-field class="example-full-width">
+                                <textarea 
+                                matInput 
+                                value=""
+                                placeholder="Long Description"
+                                formControlName="longDescription">
+                                </textarea>
+                            </mat-form-field>
+
+                            <button *ngIf="action == 'add'" type="submit" mat-raised-button color="primary" >Add</button>
+                            <button *ngIf="action == 'update'" type="submit" mat-raised-button color="accent" >Update</button>
+                        </form>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="article-table" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="70">
+        <mat-card>
+            <mat-card-content>
+                <!-- Row -->
+                <div fxLayout="row" fxLayoutWrap="wrap">
+                    <!-- column -->
+                    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
+                        Articles
+                        <!-- ================== Form Field =================== -->
+                        <!-- <form class="m-t-20">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Favorite food" value="Sushi">
+                            </mat-form-field>
+                        </form> -->
+                        <!-- =================== Table =============== -->
+                        <div class="responsive-table">
+                            <mat-table #table [dataSource]="dataSource">
+        
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                      
+                                        {{element.id}}
+                                    </mat-cell>
+                                </ng-container>
+                                <!-- Title Column-->
+                                <ng-container matColumnDef="title">
+                                    <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                      
+                                        {{element.title}}
+                                    </mat-cell>
+                                </ng-container>
+        
+                                <!-- Short Description Column -->
+                                <ng-container matColumnDef="shortDescription">
+                                    <mat-header-cell *matHeaderCellDef> Short Description </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                
+                                        {{element.shortDescription}}
+                                    </mat-cell>
+                                </ng-container>
+        
+                                <!-- Long Description Column -->
+                                <ng-container matColumnDef="longDescription">
+                                    <mat-header-cell *matHeaderCellDef> Long Description </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                 
+                                        {{element.longDescription}}
+                                    </mat-cell>
+                                </ng-container>
+                                
+                                <!-- Actions -->
+                                <ng-container matColumnDef="action">
+                                    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+
+                                        <button mat-icon-button (click)="openEditDialog(element.id, element)">
+                                            <mat-icon>edit</mat-icon>
+                                          </button>
+                                          <button mat-icon-button (click)="deleteArticle(element.id)">
+                                            <mat-icon>delete</mat-icon>
+                                          </button>
+                                        <!-- <button class="action-button" type="submit" mat-raised-button color="primary">Edit</button>
+                                        <button class="action-button" type="submit" mat-raised-button color="primary">Delete</button> -->
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- <ng-container matColumnDef="delete">
+                                    <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <button type="submit" mat-raised-button color="primary">Delete</button>
+                                    </mat-cell>
+                                </ng-container> -->
+        
+                                <!-- Symbol Column -->
+                                <!-- <ng-container matColumnDef="symbol">
+                                    <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <span class="header-label">Symbol:</span>
+                                        {{element.symbol}}
+                                    </mat-cell>
+                                </ng-container> -->
+    
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- column -->
+</div>

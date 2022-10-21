@@ -26,6 +26,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ArticlesModule } from './articles/articles.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,7 +48,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SpinnerComponent,
     AppSidebarComponent,
     LoginComponent,
-    AppBreadcrumbComponent
+    AppBreadcrumbComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +60,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     SharedModule,
     RouterModule.forRoot(AppRoutes),
-
+    ArticlesModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

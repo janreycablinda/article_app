@@ -12,7 +12,7 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: '/login',
+                redirectTo: '/articles',
                 pathMatch: 'full'
             },
             {
@@ -22,6 +22,10 @@ export const AppRoutes: Routes = [
             {
                 path: 'starter',
                 loadChildren: () => import('./starter/starter.module').then(m => m.StarterModule)
+            },
+            {
+                path: 'articles',
+                loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule)
             },
 
         ]
