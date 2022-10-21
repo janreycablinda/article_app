@@ -19,7 +19,7 @@ export class DeleteDialogComponent implements OnInit {
     var id = this.articlesService.articleID;
     this.articlesService.delete(id).subscribe((response)=>{
       console.log("Delete resposne ", response)
-      this.articlesService.successAlertMessage(`${this.articlesService.article.title} deleted sucessfully.`)
+      this.articlesService.warningAlertMessage(`${this.articlesService.article.title} deleted sucessfully.`)
     });
   };     
 }

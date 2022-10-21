@@ -79,7 +79,7 @@ export class ArticlesService {
     setTimeout(() => {
       this.clearAlertMessage();
       window.location.reload();
-    }, 2000);
+    }, 3000);
   }
 
   errorAlertMessage(message: string = "Error Message", keepAfterNavigationChange = false) {
@@ -88,7 +88,7 @@ export class ArticlesService {
     setTimeout(() => {
       this.clearAlertMessage();
       window.location.reload();
-    }, 2000);
+    }, 3000);
   }
 
   warningAlertMessage(message: string = "Warning Message", keepAfterNavigationChange = false) {
@@ -97,7 +97,7 @@ export class ArticlesService {
     setTimeout(() => {
       this.clearAlertMessage();
       window.location.reload();
-    }, 2000);
+    }, 3000);
   }
 
   infoAlertMessage(message: string = "Info Message", keepAfterNavigationChange = false) {
@@ -106,7 +106,7 @@ export class ArticlesService {
     setTimeout(() => {
       this.clearAlertMessage();
       window.location.reload();
-    }, 2000);
+    }, 3000);
   }
 
   clearAlertMessage() {

@@ -62,10 +62,10 @@
                             <h2>Articles</h2>
                         </div>
                         <div class="header">
-                            <!-- <mat-form-field floatLabel="never" class="header">
-                                <input matInput placeholder="Search" class="header">
-                            </mat-form-field> -->
-                            sdfgsdfg
+                            <mat-form-field floatLabel="never" class="header" appearance="outline" >
+                                <input matInput placeholder="Search" class="header" >
+                            </mat-form-field>
+                            
                         </div>
                         <div class="responsive-table">
                             <mat-table #table [dataSource]="dataSource">
@@ -111,7 +111,7 @@
                                         <button mat-icon-button (click)="openEditDialog(element.id, element)">
                                             <mat-icon>edit</mat-icon>
                                           </button>
-                                          <button mat-icon-button (click)="deleteArticle(element.id)">
+                                          <button mat-icon-button (click)="deleteArticle(element.id, element)">
                                             <mat-icon>delete</mat-icon>
                                           </button>
                                         <!-- <button class="action-button" type="submit" mat-raised-button color="primary">Edit</button>

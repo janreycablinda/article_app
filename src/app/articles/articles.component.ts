@@ -81,6 +81,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   editFunction(){
     var value = this._articleForm.value;
     this.articlesService.update(this.articlesService.articleID, value).subscribe((response)=>console.log("Update response", response));
+    this.articlesService.successAlertMessage(`${value.title} Added Successfuly. `)
     this.fetchData();
     this.action = "add";
     this._articleForm.reset();
@@ -92,7 +93,9 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     var service = this.articlesService;
     if(this._articleForm.valid){
       service.createArticle(value).subscribe((response)=>console.log("OnAdd Response",response));
+      // window.location.reload();
       service.successAlertMessage(`"${value.title}" Added successfuly.`);
+      
     }
 
     this.fetchData();
@@ -108,10 +111,11 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteArticle(articleID: string) {
+  deleteArticle(articleID: string, article: Element) {
     var deleteDialog = this.dialog.open(DeleteDialogComponent, {width: '300px'});
     this.articlesService.articleID = articleID;
-    deleteDialog.afterClosed().subscribe((_) => this.fetchData());
+    this.articlesService.article = article;
+    deleteDialog.afterClosed().subscribe(() =>this.fetchData());
   }
 
   onCancelUpdate(){
