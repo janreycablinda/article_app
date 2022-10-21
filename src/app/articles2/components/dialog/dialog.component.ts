@@ -50,7 +50,7 @@ export class DialogComponent implements OnInit {
       }
     }else{
       this.updateArticle()
-    }
+    } 
   }
 
   updateArticle(){
