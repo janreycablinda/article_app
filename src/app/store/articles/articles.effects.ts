@@ -38,7 +38,7 @@ export class ArticlesEffects {
     ofType(ArticleAction.addArticleRequestedAction),
     mergeMap((action) =>{
       return this.http.post<Article>('/api/articles', action.payload).pipe(
-          switchMap((data: ArticleDTO) => [
+          switchMap((data: Article) => [
             ArticleAction.addArticleSucceddedAction({ payload: data })
           ]),
           catchError((error: Error) => {
@@ -54,7 +54,6 @@ export class ArticlesEffects {
     mergeMap(action =>{
       return this.http.get<Article>(`/api/articles/${action.id}`).pipe(
           switchMap((data: Article) => {
-            
             return [
               ArticleAction.loadSelectedArticleSucceededAction({ payload: data })
             ]

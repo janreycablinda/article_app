@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import {Article, Articles, ArticleDTO, ArticlesDTO, UpdateArticleDTO} from '../articles.state'
-import { AddArticleDTO } from '../../_model/add_articles-dto';
 
 export const loadArticlesRequestedAction = createAction(
   '[Articles] Load Articles Requested'
@@ -8,12 +7,12 @@ export const loadArticlesRequestedAction = createAction(
 
 export const loadArticlesSucceededAction = createAction(
   '[Articles] Load Succedded Articles',
-  props<{ payload: Article[] }>()
+  props<{ payload: ArticleDTO[] }>()
 );
 
 export const addArticleRequestedAction = createAction(
   '[Articles] Add Requested Article',
-  props<{ payload: Article }>()
+  props<{ payload: ArticleDTO }>()
 );
 
 export const addArticleSucceddedAction = createAction(

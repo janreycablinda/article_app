@@ -2,14 +2,16 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { Articles, ArticlesState, ArticleDTO, ArticlesDTO, Article } from '../articles.state';
 import * as articlesAction  from './articles.actions';
 import { cloneDeep } from 'lodash';
-import { ofType } from '@ngrx/effects';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export const articlesFeatureKey = 'articles';
 
-export const initialState: ArticlesState = {
+export const adapter: EntityAdapter<ArticlesState> = createEntityAdapter<ArticlesState>();
+
+export const initialState: ArticlesState = adapter.getInitialState({
   articles: [],
   selected_article: <Article>{}
-};
+});
 
 export const articleReducer = createReducer(
   initialState,
@@ -52,10 +54,10 @@ export const articleReducer = createReducer(
     }
   }),
   on(articlesAction.updateArticleSuccededAction, (state: ArticlesState, { payload }) =>{
-    let nextState = cloneDeep(state.articles);
-    // const index = state.articles.findIndex(article => article.id === payload.articleId)
-    // nextState.splice(index, payload.UpdateArticleDTO);
-    return { ...state, nextState };
+    const updateArticle = state.articles.map((article)=> {
+      return payload.id === article.id ? payload : article;
+    })
+    return { ...state, articles: updateArticle };
   }),
   on(articlesAction.deleteArticleRequestedAction, (state: ArticlesState, { id }) =>{
     let nextState = cloneDeep(state.articles);
@@ -70,3 +72,5 @@ export function reducer(
   action: Action) {
   return articleReducer(state, action);
 }
+
+export const { selectAll, selectIds } = adapter.getSelectors();

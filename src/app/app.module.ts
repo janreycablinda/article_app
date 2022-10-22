@@ -28,8 +28,10 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './store/articles/articles.reducer';
+import { articleReducer } from './store/articles/articles.reducer';
 import { ArticlesEffects } from './store/articles/articles.effects';
+import { AuthEffects } from './store/auth/auth.effects';
+import { userReducer } from './store/auth/auth.reducer';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -61,8 +63,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     HttpClientModule,
     SharedModule,
-    StoreModule.forRoot({ articles: reducer }),
-    EffectsModule.forRoot([ArticlesEffects]),
+    StoreModule.forRoot({ articles: articleReducer, current_user: userReducer }),
+    EffectsModule.forRoot([ArticlesEffects, AuthEffects]),
     RouterModule.forRoot(AppRoutes),
     HttpClientModule,
     TranslateModule.forRoot({

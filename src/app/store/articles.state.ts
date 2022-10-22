@@ -1,3 +1,5 @@
+import { EntityState } from "@ngrx/entity";
+
 export interface Article {
     id?: any,
     title: string,
@@ -27,7 +29,7 @@ export class UpdateArticleDTO {
     long_description!: string;
 };
 
-export interface ArticlesState {
+export interface ArticlesState extends EntityState<Articles> {
     articles: Article[],
     selected_article?: Article
 }

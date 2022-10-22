@@ -89,6 +89,7 @@ export class ArticlesComponent implements OnInit {
       this._articleForm.reset();
       this._articleForm.setErrors(null);
     }else{
+      var value = this._articleForm.value;
       const data = {
         id: value.id,
         title: value.title,
@@ -96,6 +97,7 @@ export class ArticlesComponent implements OnInit {
         long_description: value.longDescription
       };
       this.store.dispatch(ArticleActions.updateArticleRequestedAction({payload: {articleId: data.id, updateArticleDTO: data }}));
+      this.formEdit = false;
     }
     
   }
@@ -108,8 +110,9 @@ export class ArticlesComponent implements OnInit {
   }
 
   onEditArticle(id: any){
-    this.store.dispatch(ArticleActions.loadSelectedArticleRequestedAction({id: id}));
     this.formEdit = true;
+    this.store.dispatch(ArticleActions.loadSelectedArticleRequestedAction({id: id}));
+    
   }
 
   onDeleteArticle(id: any){

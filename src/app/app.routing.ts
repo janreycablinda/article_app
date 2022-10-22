@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 
 export const AppRoutes: Routes = [
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     {
         path: '',
         component: FullComponent,
