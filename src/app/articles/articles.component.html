@@ -59,13 +59,19 @@
                         </form> -->
                         <!-- =================== Table =============== -->
                         <div class="header">
-                            <h2>Articles</h2>
+                            <h2 class="header">Articles</h2 >
+                                <!-- <div class="spacer header"></div> -->
+                                <!-- &nbsp;  &nbsp;  &nbsp;  &nbsp;  -->
+                                <div class="header">
+                                    <input (keyup)="applyFilter($event)" spacer placeholder="Search" class="header search-bar" >
+                                    <i class="fa fa-search search-icon"></i>
+                                </div>
+                                
+                                <!-- <mat-form-field floatLabel="never" class="header search-bar" appearance="outline" >
+                                    
+                                </mat-form-field> -->
                         </div>
                         <div class="header">
-                            <mat-form-field floatLabel="never" class="header" appearance="outline" >
-                                <input matInput placeholder="Search" class="header" >
-                            </mat-form-field>
-                            
                         </div>
                         <div class="responsive-table">
                             <mat-table #table [dataSource]="dataSource">

@@ -25,10 +25,8 @@ export class ArticlesService {
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         if (this.keepAfterNavigationChange) {
-          // only keep for a single location change
           this.keepAfterNavigationChange = true;
         } else {
-          // clear alert
           this.subject.next();
         }
       }
@@ -54,7 +52,6 @@ export class ArticlesService {
   createArticle(article: Element) {
     var response$ = this.http.post(this.baseUrl, article);
     return response$;
-    // console.log(this.http.post<any>(this.baseUrl, article))
   }
   update(id: string, article: Element): Observable<Element> {
     var response$ = this.http.put<Element>(this.baseUrl + '/' + id, article);
@@ -78,7 +75,6 @@ export class ArticlesService {
     this.subject.next({ type: 'success', text: message }) ;
     setTimeout(() => {
       this.clearAlertMessage();
-      window.location.reload();
     }, 3000);
   }
 
@@ -87,7 +83,6 @@ export class ArticlesService {
     this.subject.next({ type: 'error', text: message });
     setTimeout(() => {
       this.clearAlertMessage();
-      window.location.reload();
     }, 3000);
   }
 
@@ -96,7 +91,6 @@ export class ArticlesService {
     this.subject.next({ type: 'warning', text: message });
     setTimeout(() => {
       this.clearAlertMessage();
-      window.location.reload();
     }, 3000);
   }
 
@@ -105,7 +99,6 @@ export class ArticlesService {
     this.subject.next({ type: 'info', text: message });
     setTimeout(() => {
       this.clearAlertMessage();
-      window.location.reload();
     }, 3000);
   }
 

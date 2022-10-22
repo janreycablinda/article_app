@@ -51,11 +51,36 @@
 .header{
     display: inline;
     padding: 0px;
+    flex-direction: row;
+
 }
 
 .responsive-table mat-header-cell, mat-cell{
     text-align: center;
     justify-content: center;
+   
+}
+
+.search-bar{
+    padding: 8px;
+    margin-left: 40%;
+    width: 400px;
+    border-top-left-radius: 5px;
+    // border-top--radius: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #E8EFFD;
+    padding-right: 50px;
+}
+
+.search-icon{
+    position:fixed;
+    right:90px;
+    top:40px;
+}
+
+.spacer{
+    width: 100%;
 }
 
 

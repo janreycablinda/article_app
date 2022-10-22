@@ -81,8 +81,8 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   editFunction(){
     var value = this._articleForm.value;
     this.articlesService.update(this.articlesService.articleID, value).subscribe((response)=>console.log("Update response", response));
-    this.articlesService.successAlertMessage(`${value.title} Added Successfuly. `)
     this.fetchData();
+    this.articlesService.successAlertMessage(`'${value.title}' Updated Successfuly. `)
     this.action = "add";
     this._articleForm.reset();
     this._articleForm.setErrors(null);
@@ -92,8 +92,15 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     var value = this._articleForm.value;
     var service = this.articlesService;
     if(this._articleForm.valid){
-      service.createArticle(value).subscribe((response)=>console.log("OnAdd Response",response));
+      service.createArticle(value).subscribe((response)=> {
+        // this.fetch = this.articlesService.getAll().subscribe((response)=>{
+        //   this.dataSource = new MatTableDataSource<Element>(response);
+        // });
+        this.fetchData();
+      });
       // window.location.reload();
+      // this.dataSource.filteredData.push();
+      
       service.successAlertMessage(`"${value.title}" Added successfuly.`);
       
     }
@@ -123,22 +130,10 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     location.reload();
   }
 
-  // getSuccessMessage(textMessage: string = "Success") {
-  //   this.articlesService.success(textMessage);
-  // }
-  // getWarningMessage() {
-  //   this.articlesService.warning("Oh !!!! Plz check double");
-  // }
-  // getErrorMessage() {
-  //   this.articlesService.error("Ooopss !!!! Something went wrong");
-  // }
-  // getInfoMessage() {
-  //   this.articlesService.info("Yepp !!! This is a important information");
-  // }
-  // clearMessage() {
-  //   this.articlesService.clearAlertMessage();
-  // }
-
+  applyFilter(event: Event){
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
 
 
