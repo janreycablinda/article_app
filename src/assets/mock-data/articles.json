@@ -1,40 +1,16 @@
 {
   "articles": [
     {
-      "title": "asdas",
-      "shortDescription": "das",
-      "longDescription": "dasd",
-      "id": 7
+      "title": "asd",
+      "shortDescription": "sad",
+      "longDescription": "hello",
+      "id": 1
     },
     {
-      "title": "asdas",
-      "shortDescription": "das",
-      "longDescription": "dasd",
-      "id": 8
-    },
-    {
-      "title": "asdasd",
-      "shortDescription": "asdasd",
-      "longDescription": "asdasd",
-      "id": 9
-    },
-    {
-      "title": "zxczx",
-      "shortDescription": "czxc",
-      "longDescription": "zxczxc",
-      "id": 10
-    },
-    {
-      "title": "sad",
-      "shortDescription": "asdasdasdas",
-      "longDescription": "dasdasdasd",
-      "id": 11
-    },
-    {
-      "title": "sadsa",
-      "shortDescription": "dasdas",
-      "longDescription": "dasdasdasd",
-      "id": 12
+      "title": "ZXZX",
+      "shortDescription": "sadas",
+      "longDescription": "dasdasdasdsdasd",
+      "id": 2
     }
   ]
 }

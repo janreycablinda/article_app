@@ -32,7 +32,10 @@ export class Articles2Service {
 
   deleteArticle(id: number){
     let delete$ = this.http.delete<any>(environment.apiUrl + `articles/${id}`)
-    return delete$;
+    return delete$.pipe(tap(() => {
+    this.refreshRequired.next()
+    })
+    )
   }
 
   updateArticle(data: any, id: number){

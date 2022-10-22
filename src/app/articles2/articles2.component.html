@@ -2,37 +2,55 @@
   <mat-card>
     <mat-card-content>
       <!-- ================== Form Field =================== -->
-      <div class="formContainer">
-        <button
-          mat-raised-button
-          type="submit"
-          color="primary"
-          (click)="openDialog()"
-        >
-          Add Article
-        </button>
-      </div>
       <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
         <!-- =================== Table =============== -->
         <div class="responsive-table">
-          <mat-table #table [dataSource]="dataSource">
+          <div class="topContainer">
+            <div class="searchBar">
+              <mat-form-field appearance="outline">
+                <mat-label>Search Article... </mat-label>
+                <input
+                  matInput
+                  placeholder=""
+                  search
+                  (keyup)="applyEvent($event)"
+                />
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="action">
+              <button
+                mat-raised-button
+                type="submit"
+                color="primary"
+                (click)="openDialog()"
+              >
+                Add Article
+              </button>
+            </div>
+          </div>
+          <mat-table #table [dataSource]="dataSource" matSort>
             <!-- ID Column -->
             <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                ID.
+              </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 {{ element.id }}
               </mat-cell>
             </ng-container>
             <!-- Title Column -->
             <ng-container matColumnDef="title">
-              <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Title
+              </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 {{ element.title }}
               </mat-cell>
             </ng-container>
             <!-- Short Description Column -->
             <ng-container matColumnDef="shortDescription">
-              <mat-header-cell *matHeaderCellDef>
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
                 Short Description
               </mat-header-cell>
               <mat-cell *matCellDef="let element">
@@ -41,7 +59,7 @@
             </ng-container>
             <!-- Long Description Column -->
             <ng-container matColumnDef="longDescription">
-              <mat-header-cell *matHeaderCellDef>
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
                 Long Description
               </mat-header-cell>
               <mat-cell *matCellDef="let element">

@@ -5,7 +5,6 @@ import { Articles2Service } from '../../articles2.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-dialog',
@@ -46,6 +45,7 @@ export class DialogComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.openSnackBar('Added Successfully!', 'Close')
+          this.dialogRef.close()
         },
         error: (err) => {
           this.openSnackBar('Error while adding!', 'Close')
