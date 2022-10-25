@@ -1,11 +1,17 @@
+import { User } from "./auth/user.model"
+
 export interface UserData {
     username: string,
     password: string
 };
 
 export interface CurrentUserState {
-    name: string,
-    email: string,
-    access_token?: string,
-    remember_toke?: string
+    user: User
+}
+
+export interface AuthResponsData {
+    email: string;
+    refreshToken: string;
+    expiresIn: string;
+    localId?: string;
 }

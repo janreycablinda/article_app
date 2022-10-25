@@ -32,6 +32,7 @@ import { articleReducer } from './store/articles/articles.reducer';
 import { ArticlesEffects } from './store/articles/articles.effects';
 import { AuthEffects } from './store/auth/auth.effects';
 import { userReducer } from './store/auth/auth.reducer';
+import { CoreModule } from "./core.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,6 +64,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     HttpClientModule,
     SharedModule,
+    CoreModule,
     StoreModule.forRoot({ articles: articleReducer, current_user: userReducer }),
     EffectsModule.forRoot([ArticlesEffects, AuthEffects]),
     RouterModule.forRoot(AppRoutes),

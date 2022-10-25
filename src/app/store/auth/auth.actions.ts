@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserData } from '../auth.state';
+import { AuthResponsData, UserData } from '../auth.state';
 
 export const loadAuths = createAction(
   '[Auth] Load Auths'
@@ -10,9 +10,19 @@ export const loginRequestedAction = createAction(
   props<{ payload: UserData }>()
 );
 
+export const getUserDataRequestedAction = createAction(
+  '[Auth] Get User Data Requested Action',
+  props<{ payload: any }>()
+);
+
+export const getUserDataSucceededAction = createAction(
+  '[Auth] Get User Data Requested Action',
+  props<{ payload: any }>()
+);
+
 export const loginSucceededAction = createAction(
   '[Auth] Login Succeeded Action',
-  props<{ payload: UserData }>()
+  props<{ payload: AuthResponsData }>()
 );
 
 export const loadAuthsSuccess = createAction(
