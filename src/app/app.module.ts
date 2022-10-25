@@ -26,6 +26,10 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { Articles2Effects } from './store/articles2/articles2.effects';
+import { Articles2Reducer } from './store/articles2/articles2.reducer';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,6 +63,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     HttpClientModule,
     SharedModule,
+    StoreModule.forRoot({ articles2: Articles2Reducer}),
+    EffectsModule.forRoot([Articles2Effects]),
     RouterModule.forRoot(AppRoutes),
     HttpClientModule,
     TranslateModule.forRoot({

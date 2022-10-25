@@ -13,7 +13,7 @@ articles2: []
 };
 
 
-export const reducer = createReducer(
+export const Articles2Reducer = createReducer(
   initialState,
   on(Articles2Action.loadArticles2sSucceeded, (state: Articles2State, { payload }) => {
     return {
