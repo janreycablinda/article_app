@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Articles2Service } from './articles2.service';
-import { Articles2 } from './articles2.model';
+import { Store } from '@ngrx/store';
+import { Articles2 } from '../store/articles2.state';
 import { DialogComponent } from './components/dialog/dialog.component';
+import * as Articles2Action from '../store/articles2/articles2.actions'
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog} from '@angular/material/dialog';
@@ -16,63 +17,63 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./articles2.component.scss']
 })
 export class Articles2Component implements OnInit {
+  articles2!: Articles2[];
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = ['id', 'title', 'shortDescription', 'longDescription', 'action'];
 
   constructor(private dialog: MatDialog,
-              private articles2Service: Articles2Service,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              private store: Store<{ articles2: [any] }> ) { }
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  listArticles!: Articles2[];
+  
 
-  dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'title', 'shortDescription', 'longDescription', 'action'];
+  // getAllArticle(){
+  //   this.articles2Service.getArticle()
+  //   .subscribe({
+  //     next: (res) => {
+  //       this.dataSource = new MatTableDataSource(res);
+  //       this.dataSource.paginator = this.paginator;
+  //       this.dataSource.sort = this.sort;
+  //     },
+  //     error: () => {
 
-  getAllArticle(){
-    this.articles2Service.getArticle()
-    .subscribe({
-      next: (res) => {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error: () => {
+  //     }
+  //   })
+  // }
 
-      }
-    })
-  }
-
-  deleteArticle(id: number){
-    let del =  window.confirm("Are you sure you want to delete this article?")
-    if(del) {
-      this.articles2Service.deleteArticle(id)
-      .subscribe({
-        next:(res) => {
-          this.openSnackBar('Deleted Successfully!', 'Close')
-        },
-        error : (err) => {
-          this.openSnackBar('Error while deleting!', 'Close')
-        }
-      })
-    }else{
-      return false;
-    }
-  }
+  // deleteArticle(id: number){
+  //   let del =  window.confirm("Are you sure you want to delete this article?")
+  //   if(del) {
+  //     this.articles2Service.deleteArticle(id)
+  //     .subscribe({
+  //       next:(res) => {
+  //         this.openSnackBar('Deleted Successfully!', 'Close')
+  //       },
+  //       error : (err) => {
+  //         this.openSnackBar('Error while deleting!', 'Close')
+  //       }
+  //     })
+  //   }else{
+  //     return false;
+  //   }
+  // }
 
   openDialog(){
     this.dialog.open(DialogComponent,{})
   }
 
-  editArticle(row: any){
-    this.dialog.open(DialogComponent, {
-      data: row
-    }).afterClosed().subscribe(val => {
-      if(val === 'update'){
-        this.getAllArticle()
-      }
-    })
-  }
+  // editArticle(row: any){
+  //   this.dialog.open(DialogComponent, {
+  //     data: row
+  //   }).afterClosed().subscribe(val => {
+  //     if(val === 'update'){
+  //       this.getAllArticle()
+  //     }
+  //   })
+  // }
 
   applyEvent(event: Event){
     const filterValue = (event.target as HTMLInputElement).value;
@@ -92,14 +93,15 @@ export class Articles2Component implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getAllArticle();
-    this.articles2Service.autoFetchArticle().subscribe({
-      next:(res) => {
-        this.getAllArticle()
-      },
-      error : (err) => {
-      }
-    })
+    this.store.dispatch(Articles2Action.loadArticles2sRequested())
+    // this.getAllArticle();
+    // this.articles2Service.autoFetchArticle().subscribe({
+    //   next:(res) => {
+    //     this.getAllArticle()
+    //   },
+    //   error : (err) => {
+    //   }
+    // })
   }
 }
  
