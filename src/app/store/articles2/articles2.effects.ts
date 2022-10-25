@@ -6,6 +6,7 @@ import { Action } from '@ngrx/store';
 import { Articles2 } from '../articles2.state';
 import { catchError, mergeMap, switchMap } from 'rxjs/operators';
 import * as Article2Action from './articles2.actions'
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class Articles2Effects {
@@ -16,8 +17,9 @@ export class Articles2Effects {
   loadArticlesEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(Article2Action.loadArticles2sRequested),
     mergeMap(res => {
-      return this.http.get<Articles2[]>('articles').pipe(
+      return this.http.get<Articles2[]>(environment.apiUrl + 'articles').pipe(
         switchMap((data: Articles2[]) => {
+          console.log(data)
           return [
             Article2Action.loadArticles2sSucceeded({ payload: data })
           ]

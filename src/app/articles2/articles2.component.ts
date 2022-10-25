@@ -10,6 +10,7 @@ import { MatDialog} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-articles2',
@@ -20,6 +21,7 @@ export class Articles2Component implements OnInit {
   articles2!: Articles2[];
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = ['id', 'title', 'shortDescription', 'longDescription', 'action'];
+  articles2$!: Observable<any>
 
   constructor(private dialog: MatDialog,
               private snackBar: MatSnackBar,
@@ -31,17 +33,7 @@ export class Articles2Component implements OnInit {
   
 
   // getAllArticle(){
-  //   this.articles2Service.getArticle()
-  //   .subscribe({
-  //     next: (res) => {
-  //       this.dataSource = new MatTableDataSource(res);
-  //       this.dataSource.paginator = this.paginator;
-  //       this.dataSource.sort = this.sort;
-  //     },
-  //     error: () => {
-
-  //     }
-  //   })
+    
   // }
 
   // deleteArticle(id: number){
