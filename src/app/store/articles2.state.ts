@@ -4,3 +4,5 @@ export interface Articles2 {
     shortDescription: string,
     longDescription: string
 }
+
+

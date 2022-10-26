@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Store } from '@ngrx/store';
+import { Store, select} from '@ngrx/store';
 import { Articles2 } from '../store/articles2.state';
 import { DialogComponent } from './components/dialog/dialog.component';
 import * as Articles2Action from '../store/articles2/articles2.actions'
@@ -30,11 +30,15 @@ export class Articles2Component implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  
-
-  // getAllArticle(){
-    
-  // }
+  getAllArticle(){
+  this.store.dispatch(Articles2Action.loadArticles2sRequested())
+  this.articles2$ = this.store.select('articles2')
+  console.log(this.articles2$)
+  this.articles2$.subscribe((res) => {
+    this.dataSource = res.articles2
+    console.log(this.dataSource)
+  })
+  }
 
   // deleteArticle(id: number){
   //   let del =  window.confirm("Are you sure you want to delete this article?")
@@ -85,8 +89,7 @@ export class Articles2Component implements OnInit {
    }
 
   ngOnInit(): void {
-    this.store.dispatch(Articles2Action.loadArticles2sRequested())
-    // this.getAllArticle();
+    this.getAllArticle();
     // this.articles2Service.autoFetchArticle().subscribe({
     //   next:(res) => {
     //     this.getAllArticle()

@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { Articles2 } from '../articles2.state';
 import * as Articles2Action from './articles2.actions'
 
@@ -11,7 +11,6 @@ export interface Articles2State {
 export const initialState: Articles2State = {
 articles2: []
 };
-
 
 export const Articles2Reducer = createReducer(
   initialState,
