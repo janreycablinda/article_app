@@ -1,4 +1,4 @@
-<form [formGroup]="articleForm">
+<form [formGroup]="articleForm" (ngSubmit)="addArticle()">
   <h1 mat-dialog-title>{{ header }}</h1>
   <div mat-dialog-content>
     <mat-form-field appearance="outline">

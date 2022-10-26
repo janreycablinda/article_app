@@ -5,4 +5,7 @@ export interface Articles2 {
     longDescription: string
 }
 
+export interface Articles2State {
+    articles2: Articles2[]
+}  
 

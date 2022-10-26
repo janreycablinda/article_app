@@ -17,16 +17,30 @@ export const loadArticles2sFailure = createAction(
 // Adding data
 export const addArticles2sRequested = createAction(
   '[Articles2] Add Requested Article',   
-  props<{ payload: Articles2[] }>()
+  props<{ payload: Articles2 }>()
 );
 
 export const addArticles2sSucceeded = createAction(
   '[Articles2] Add Succeeded Article',   
-  props<{ payload: Articles2[] }>()
+  props<{ payload: Articles2 }>()
 );
 
 export const addArticles2sFailure = createAction(
   '[Articles2] Add Articles2s Failure',
   props<{ error: any }>()
 );
+// Deleting data
+export const deleteArticles2sRequested = createAction(
+  '[Articles2] Delete Requested Article',   
+  props<{ id: number }>()
+);
 
+export const deleteArticles2sSucceeded = createAction(
+  '[Articles2] Delete Succeeded Article',   
+  props<{ id: number }>()
+);
+
+export const deleteArticles2sFailure = createAction(
+  '[Articles2] Delete Articles2s Failure',
+  props<{ error: any }>()
+);
