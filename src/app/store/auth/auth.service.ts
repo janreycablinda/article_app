@@ -14,6 +14,10 @@ export class AuthService {
     this.setLogoutTimer(data.expires_in * 1000);
   }
 
+  autoLogin(){
+    
+  }
+
   setLogoutTimer(expirationDuration: number){
     this.tokenExpirationTimer = setTimeout(() => {
       // this.store.dispatch(new AuthActions.Logout());

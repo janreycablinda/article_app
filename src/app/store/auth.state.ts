@@ -6,12 +6,12 @@ export interface UserData {
 };
 
 export interface CurrentUserState {
-    user: User
+    user: User,
+    token: string
 }
 
 export interface AuthResponsData {
-    email: string;
-    refreshToken: string;
-    expiresIn: string;
-    localId?: string;
+    access_token: string;
+    expires_in: number;
+    token_type: string;
 }

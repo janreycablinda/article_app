@@ -19,7 +19,7 @@ export class ArticlesEffects {
   loadArticlesEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ArticleAction.loadArticlesRequestedAction),
     mergeMap(res =>{
-      return this.http.get<Article[]>('/api/articles').pipe(
+      return this.http.get<Article[]>('/api/data/articles').pipe(
           switchMap((data: Article[]) => {
             // console.log('effect', data)
             return [
@@ -37,7 +37,7 @@ export class ArticlesEffects {
   addArticleEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ArticleAction.addArticleRequestedAction),
     mergeMap((action) =>{
-      return this.http.post<Article>('/api/articles', action.payload).pipe(
+      return this.http.post<Article>('/api/data/articles', action.payload).pipe(
           switchMap((data: Article) => [
             ArticleAction.addArticleSucceddedAction({ payload: data })
           ]),
@@ -52,7 +52,7 @@ export class ArticlesEffects {
   loadSelectedArticlesEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ArticleAction.loadSelectedArticleRequestedAction),
     mergeMap(action =>{
-      return this.http.get<Article>(`/api/articles/${action.id}`).pipe(
+      return this.http.get<Article>(`/api/data/articles/${action.id}`).pipe(
           switchMap((data: Article) => {
             return [
               ArticleAction.loadSelectedArticleSucceededAction({ payload: data })
@@ -69,7 +69,7 @@ export class ArticlesEffects {
   updateArticleActionEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ArticleAction.updateArticleRequestedAction),
     mergeMap(action => {
-      return this.http.put<Article>(`/api/articles/${action.payload.articleId}`, action.payload.updateArticleDTO).pipe(
+      return this.http.put<Article>(`/api/data/articles/${action.payload.articleId}`, action.payload.updateArticleDTO).pipe(
           switchMap((data: ArticleDTO) => [
             ArticleAction.updateArticleSuccededAction({ payload: data })
           ]),
@@ -85,7 +85,7 @@ export class ArticlesEffects {
     ofType(ArticleAction.deleteArticleRequestedAction),
     mergeMap(action =>{
       console.log(action);
-      return this.http.delete<number>(`/api/articles/${action.id}`).pipe(
+      return this.http.delete<number>(`/api/data/articles/${action.id}`).pipe(
           switchMap(res => [
             ArticleAction.deleteArticleSucceededAction({ id: res })
           ]),

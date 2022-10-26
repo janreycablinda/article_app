@@ -35,7 +35,7 @@ export class ArticlesComponent implements OnInit {
     // this.articles$ = this.store.pipe(select(selectArticles))
 
     this.articles$.subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.dataSource = res.articles;
       if(this.formEdit){
         console.log(this.formEdit);

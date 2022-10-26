@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { AuthResponsData, UserData } from '../auth.state';
+import { User } from './user.model';
 
 export const loadAuths = createAction(
   '[Auth] Load Auths'
@@ -10,19 +11,38 @@ export const loginRequestedAction = createAction(
   props<{ payload: UserData }>()
 );
 
+export const loginSucceededAction = createAction(
+  '[Auth] Login Succeeded Action',
+  props<{ payload: User }>()
+);
+
+export const authLogoutRequestedAction = createAction(
+  '[Auth] Auto Logout Requested Action',
+  props<{ payload: any }>()
+);
+
+export const authLogoutSucceededAction = createAction(
+  '[Auth] Auto Logout Succeeded Action',
+  props<{ payload: any }>()
+);
+
+export const autoLoginRequestedAction = createAction(
+  '[Auth] Auto Login Requested Action'
+);
+
+export const autoLoginSucceededAction = createAction(
+  '[Auth] Auto Login Succeeded Action',
+  props<{ payload: any }>()
+);
+
 export const getUserDataRequestedAction = createAction(
   '[Auth] Get User Data Requested Action',
   props<{ payload: any }>()
 );
 
 export const getUserDataSucceededAction = createAction(
-  '[Auth] Get User Data Requested Action',
+  '[Auth] Get User Data Succeeded Action',
   props<{ payload: any }>()
-);
-
-export const loginSucceededAction = createAction(
-  '[Auth] Login Succeeded Action',
-  props<{ payload: AuthResponsData }>()
 );
 
 export const loadAuthsSuccess = createAction(
@@ -34,3 +54,4 @@ export const loadAuthsFailure = createAction(
   '[Auth] Load Auths Failure',
   props<{ error: any }>()
 );
+

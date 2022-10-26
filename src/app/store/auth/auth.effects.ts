@@ -8,7 +8,8 @@ import { catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { UserData, AuthResponsData } from '../auth.state';
 import * as AuthAction from './auth.actions'
 import { AuthService } from './auth.service'
-import jwtDecode from "jwt-decode";
+import { Router } from "@angular/router";
+import { User } from './user.model';
 
 @Injectable()
 export class AuthEffects {
@@ -17,7 +18,12 @@ export class AuthEffects {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private actions$: Actions, private http: HttpClient, private authService:AuthService) {}
+  constructor(
+    private actions$: Actions, 
+    private http: HttpClient, 
+    private authService:AuthService,
+    private router: Router
+  ) {}
 
   loginUserEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthAction.loginRequestedAction),
@@ -25,9 +31,28 @@ export class AuthEffects {
       
       return this.http.post<AuthResponsData>('/api/auth/login', data).pipe(
           switchMap((data: AuthResponsData) => {
-            console.log(data);
+            this.authService.handleAuthentication(data);
             return [
-              AuthAction.getUserDataRequestedAction({ payload: data.access_token }),
+              AuthAction.getUserDataRequestedAction({ payload: data })
+            ]
+          }),
+          catchError((error: Error) => {
+            return of(AuthAction.loadAuthsFailure({ error: error }));
+          })
+        )
+      }
+    )
+  ));
+
+  fetchUserEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(AuthAction.getUserDataRequestedAction),
+    mergeMap(() =>{
+      
+      return this.http.get<User>('/api/auth/me').pipe(
+          switchMap((data: User) => {
+            console.log(data);
+            this.router.navigate(["/articles"]);
+            return [
               AuthAction.loginSucceededAction({ payload: data }),
             ]
           }),
@@ -40,18 +65,37 @@ export class AuthEffects {
     )
   ));
 
-  refetchUserEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(AuthAction.getUserDataRequestedAction),
+  autoLoginEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(AuthAction.autoLoginRequestedAction),
+    mergeMap(() => {
+      return this.http.get<User>('/api/auth/me').pipe(
+          switchMap((data: User) => {
+            const token:any = localStorage.getItem('token');
+            const user = new User(
+              data.name,
+              data.email,
+              token
+            );
+            return [
+              AuthAction.autoLoginSucceededAction({ payload: data }),
+            ]
+          }),
+          catchError((error: Error) => {
+            
+            return of(AuthAction.loadAuthsFailure({ error: error }));
+          })
+        )
+      }
+    )
+  ));
+
+  authLogoutEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(AuthAction.authLogoutRequestedAction),
     mergeMap((data) =>{
-      
-      this.httpOptions = {
-        headers: new HttpHeaders({ 'Authorization': `Bearer ${data.payload}` })
-      };
-      
-      return this.http.post<AuthResponsData>('/api/auth/me', data, this.httpOptions).pipe(
-          switchMap((data: AuthResponsData) => {
+      return this.http.post<User>('/api/auth/me', data).pipe(
+          switchMap((data: User) => {
             console.log(data);
-            this.authService.handleAuthentication(data);
+            // this.router.navigate(["/articles"]);
             return [
               AuthAction.loginSucceededAction({ payload: data }),
             ]
