@@ -37,9 +37,9 @@ export class Articles2Effects {
       ofType(Article2Action.addArticles2sRequested),
       mergeMap((res) => {
         return this.http.post<Articles2>(environment.apiUrl + 'articles', res.payload).pipe(
-          tap(
-            this.openSnackBar('Added Successfully!', 'Close')
-          this.dialogRef.close()),
+          tap(() => {
+            console.log('hello');
+          }),
           switchMap((data: Articles2) => {
             return [
               Article2Action.addArticles2sSucceeded({ payload: data })
