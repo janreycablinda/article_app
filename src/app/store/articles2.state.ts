@@ -6,6 +6,7 @@ export interface Articles2 {
 }
 
 export interface Articles2State {
-    articles2: Articles2[]
-}  
+    articles2: Articles2[],
+    message: string
+}
 

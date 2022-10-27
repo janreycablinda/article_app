@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { Articles2 } from '../articles2.state';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, mergeMap, tap } from 'rxjs/operators';
 import * as Article2Action from './articles2.actions'
 import { environment } from 'src/environments/environment';
 
@@ -12,12 +12,12 @@ import { environment } from 'src/environments/environment';
 export class Articles2Effects {
 
   constructor(private actions$: Actions,
-              private http: HttpClient) {}
+    private http: HttpClient) { }
 
-  loadArticlesEffect$: Observable<Action> = createEffect(() => 
+  loadArticlesEffect$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(Article2Action.loadArticles2sRequested),
-      switchMap((res) => {
+      mergeMap((res) => {
         return this.http.get<Articles2[]>(environment.apiUrl + 'articles').pipe(
           switchMap((data: Articles2[]) => {
             // console.log(data)
@@ -26,17 +26,20 @@ export class Articles2Effects {
             ]
           }),
           catchError((error: Error) => {
-            return of(Article2Action.loadArticles2sFailure({error: error}))
+            return of(Article2Action.loadArticles2sFailure({ error: error }))
           })
         )
       })
-  ));
-  
-  addArticlesEffect$: Observable<Action> = createEffect(() => 
+    ));
+
+  addArticlesEffect$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(Article2Action.addArticles2sRequested),
-      switchMap((res) => {
+      mergeMap((res) => {
         return this.http.post<Articles2>(environment.apiUrl + 'articles', res.payload).pipe(
+          tap(
+            this.openSnackBar('Added Successfully!', 'Close')
+          this.dialogRef.close()),
           switchMap((data: Articles2) => {
             return [
               Article2Action.addArticles2sSucceeded({ payload: data })
@@ -47,23 +50,23 @@ export class Articles2Effects {
           })
         )
       })
-  ));
+    ));
 
-  deleteArticlesEffect$: Observable<Action> = createEffect (() =>
-      this.actions$.pipe(
-        ofType(Article2Action.deleteArticles2sRequested),
-        switchMap((res) =>{
-          return this.http.delete<number>(environment.apiUrl + `articles/${res.id}`).pipe(
-            switchMap((res) => {
-              return [
-                Article2Action.deleteArticles2sSucceeded({ id: res })
-              ]
-            }),
-            catchError((error: Error) => {
-              return of(Article2Action.deleteArticles2sFailure({ error: error }))
-            })
-          )
-        })
-      )
+  deleteArticlesEffect$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(Article2Action.deleteArticles2sRequested),
+      mergeMap((res) => {
+        return this.http.delete<number>(environment.apiUrl + `articles/${res.id}`).pipe(
+          switchMap((res) => {
+            return [
+              Article2Action.deleteArticles2sSucceeded({ id: res })
+            ]
+          }),
+          catchError((error: Error) => {
+            return of(Article2Action.deleteArticles2sFailure({ error: error }))
+          })
+        )
+      })
+    )
   )
 }

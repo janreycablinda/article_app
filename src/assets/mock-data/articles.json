@@ -1,58 +1,40 @@
 {
   "articles": [
     {
-      "title": "asd",
-      "shortDescription": "sad",
-      "longDescription": "hello",
+      "title": "asdasd",
+      "shortDescription": "sdasd",
+      "longDescription": "asdasdasd",
       "id": 1
     },
     {
-      "title": "ZXZX",
-      "shortDescription": "sadas",
-      "longDescription": "dasdasdasdsdasd",
+      "title": "sadsad",
+      "shortDescription": "das",
+      "longDescription": "dsadsadasd",
       "id": 2
     },
     {
-      "title": "asd",
-      "shortDescription": "asdasd",
-      "longDescription": "asdasd",
+      "title": "asdas",
+      "shortDescription": "dsadas",
+      "longDescription": "dasdasd",
       "id": 3
     },
     {
-      "title": "asdasd",
-      "shortDescription": "dasdsd",
-      "longDescription": "dasdasd",
+      "title": "asdasdas",
+      "shortDescription": "dasd",
+      "longDescription": "asdasdasd",
       "id": 4
     },
     {
-      "title": "asdasd",
-      "shortDescription": "sadasd",
-      "longDescription": "asdasd",
+      "title": "sadsad",
+      "shortDescription": "sada",
+      "longDescription": "sdasd",
       "id": 5
     },
     {
-      "title": "HAHAHAHAAHA",
-      "shortDescription": "dasdasd",
-      "longDescription": "dasdasdasdasd",
+      "title": "dfdsf",
+      "shortDescription": "sdfsdfds",
+      "longDescription": "fsdfsdf",
       "id": 6
-    },
-    {
-      "title": "sadasdsa",
-      "shortDescription": "dasd",
-      "longDescription": "asdasd",
-      "id": 7
-    },
-    {
-      "title": "asdasdsad",
-      "shortDescription": "asdadasdas",
-      "longDescription": "dasdasdasdasdasd",
-      "id": 8
-    },
-    {
-      "title": "mj",
-      "shortDescription": "asdasd",
-      "longDescription": "asdasdasdasd",
-      "id": 9
     }
   ]
 }

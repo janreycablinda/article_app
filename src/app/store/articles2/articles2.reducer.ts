@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { Articles2, Articles2State } from '../articles2.state';
 import * as Articles2Action from './articles2.actions'
@@ -14,11 +13,12 @@ export const Articles2Reducer = createReducer(
   initialState,
   on(Articles2Action.loadArticles2sSucceeded, (state: Articles2State, { payload }) => {
     return {
-      ...state, 
+      ...state,
       articles2: payload
     }
   }),
   on(Articles2Action.addArticles2sSucceeded, (state: Articles2State, { payload }) => {
+
     let data: Articles2 = {
       id: payload.id,
       title: payload.title,
@@ -26,13 +26,13 @@ export const Articles2Reducer = createReducer(
       longDescription: payload.longDescription
     }
 
-    return{...state, data}
+    return { ...state, data }
   }),
   on(Articles2Action.deleteArticles2sRequested, (state: Articles2State, { id }) => {
     let getData = state.articles2
     let newData = getData.filter(item => item.id !== id)
 
-    return{...state, newData}
+    return { ...state, newData }
   })
 );
 
