@@ -93,14 +93,8 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     var service = this.articlesService;
     if(this._articleForm.valid){
       service.createArticle(value).subscribe((response)=> {
-        // this.fetch = this.articlesService.getAll().subscribe((response)=>{
-        //   this.dataSource = new MatTableDataSource<Element>(response);
-        // });
         this.fetchData();
       });
-      // window.location.reload();
-      // this.dataSource.filteredData.push();
-      
       service.successAlertMessage(`"${value.title}" Added successfuly.`);
       
     }
