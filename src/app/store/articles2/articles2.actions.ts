@@ -44,3 +44,18 @@ export const deleteArticles2sFailure = createAction(
   '[Articles2] Delete Articles2s Failure',
   props<{ error: any }>()
 );
+// Updating data
+export const updateArticles2sRequested = createAction(
+  '[Articles2] Update Requested Article',
+  props<{ payload: { articleId: any, updateArticle: Articles2 } }>()
+);
+
+export const updateArticles2sSucceeded = createAction(
+  '[Articles2] Update Succeeded Article',
+  props<{ payload: Articles2 }>()
+);
+
+export const updateArticles2sFailure = createAction(
+  '[Articles2] Update Articles2s Failure',
+  props<{ error: any }>()
+);

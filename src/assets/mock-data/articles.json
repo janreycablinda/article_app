@@ -1,25 +1,13 @@
 {
   "articles": [
     {
-      "title": "asdasd",
-      "shortDescription": "sdasd",
-      "longDescription": "asdasdasd",
-      "id": 1
-    },
-    {
-      "title": "sadsad",
-      "shortDescription": "das",
-      "longDescription": "dsadsadasd",
-      "id": 2
-    },
-    {
-      "title": "asdas",
-      "shortDescription": "dsadas",
-      "longDescription": "dasdasd",
+      "title": "mj",
+      "shortDescription": "hahahahaha",
+      "longDescription": "hahahahahahahahaha",
       "id": 3
     },
     {
-      "title": "asdasdas",
+      "title": "Sir Khalil",
       "shortDescription": "dasd",
       "longDescription": "asdasdasd",
       "id": 4
@@ -31,9 +19,9 @@
       "id": 5
     },
     {
-      "title": "dfdsf",
-      "shortDescription": "sdfsdfds",
-      "longDescription": "fsdfsdf",
+      "title": "mj123",
+      "shortDescription": "dasdas",
+      "longDescription": "dasddasd",
       "id": 6
     }
   ]

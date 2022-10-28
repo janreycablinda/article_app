@@ -17,8 +17,8 @@ import { DemoMaterialModule } from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { tokenInterceptorService } from './store/token-interceptor.service';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -30,7 +30,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { Articles2Effects } from './store/articles2/articles2.effects';
 import { Articles2Reducer } from './store/articles2/articles2.reducer';
-
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -50,9 +49,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppHeaderComponent,
     SpinnerComponent,
     AppSidebarComponent,
-    LoginComponent,
     AppBreadcrumbComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -63,7 +61,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     HttpClientModule,
     SharedModule,
-    StoreModule.forRoot({ articles2: Articles2Reducer}),
+    StoreModule.forRoot({ articles2: Articles2Reducer }),
     EffectsModule.forRoot([Articles2Effects]),
     RouterModule.forRoot(AppRoutes),
     HttpClientModule,
@@ -76,6 +74,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     })
   ],
   providers: [
+    tokenInterceptorService,
     AuthGuard,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

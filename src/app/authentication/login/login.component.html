@@ -11,7 +11,7 @@
                 <img alt="homepage" src="assets/images/logo-icon.png">
                 <h4 class="m-t-0">Login to App</h4>
             </div>
-            <div *ngIf="msg" class="bg-danger p-10 text-white">{{ msg }}</div>
+            <!-- <div *ngIf="msg" class="bg-danger p-10 text-white">{{ msg }}</div> -->
             <div fxLayout="row wrap">
                 <!-- col full-->
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
@@ -35,7 +35,7 @@
                 </div>
                 <!-- col full-->
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                    <button mat-raised-button color="primary" class="btn-block btn-lg m-t-20 m-b-20" (click)="check(u1.value, p2.value)" type="button">Login</button>
+                    <button mat-raised-button color="primary" class="btn-block btn-lg m-t-20 m-b-20" type="button">Login</button>
                 </div>
                 <!-- col full-->
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="text-center">

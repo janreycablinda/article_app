@@ -47,20 +47,16 @@ export class Articles2Component implements OnInit {
 
   deleteArticle(id: number) {
     let del = window.confirm("Are you sure you want to delete this article?")
-    if (del) {
+    if (del && id) {
       this.store.dispatch(Articles2Action.deleteArticles2sRequested({ id: id }))
-      if (id) {
-        this.articles2Service.fetchArticles().subscribe({
-          next: (res) => {
-            console.log("deleted", res.articles2)
-            this.openSnackBar('Deleted Successfully!', 'Close')
-          }
-        })
-      } else {
-        this.openSnackBar('Error while deleting!', 'Close')
-      }
+      this.articles2Service.fetchArticles().subscribe({
+        next: (res) => {
+          console.log("deleted", res.articles2)
+          this.openSnackBar('Deleted Successfully!', 'Close')
+        }
+      })
     } else {
-      return false;
+      this.openSnackBar('Error while deleting!', 'Close')
     }
   }
 

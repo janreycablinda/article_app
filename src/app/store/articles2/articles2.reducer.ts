@@ -6,7 +6,6 @@ export const articles2FeatureKey = 'articles2';
 
 export const initialState: Articles2State = {
   articles2: [],
-
 };
 
 export const Articles2Reducer = createReducer(
@@ -33,6 +32,14 @@ export const Articles2Reducer = createReducer(
     let newData = getData.filter(item => item.id !== id)
 
     return { ...state, newData }
+  }),
+  on(Articles2Action.updateArticles2sSucceeded, (state: Articles2State, { payload }) => {
+
+    let updateArticle = state.articles2.map((article2) => {
+      return payload.id === article2.id ? payload : article2;
+    })
+
+    return { ...state, updateArticle }
   })
 );
 

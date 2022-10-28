@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
-import { LoginComponent } from './login/login.component';
+
 import { AuthGuard } from './auth.guard';
 
 export const AppRoutes: Routes = [
@@ -20,10 +20,6 @@ export const AppRoutes: Routes = [
                 loadChildren: () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
             },
             {
-                path: 'starter',
-                loadChildren: () => import('./starter/starter.module').then(m => m.StarterModule)
-            },
-            {
                 path: 'articles',
                 loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule)
             },
@@ -33,8 +29,8 @@ export const AppRoutes: Routes = [
             },
         ]
     },
-    {
-        path: 'login',
-        component: LoginComponent,
-    }
+    // {
+    //     path: 'login',
+    //     component: LoginComponent,
+    // }
 ];

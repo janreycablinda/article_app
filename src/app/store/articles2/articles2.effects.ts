@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
-import { Articles2 } from '../articles2.state';
 import { catchError, switchMap, mergeMap, tap } from 'rxjs/operators';
+
 import * as Article2Action from './articles2.actions'
+import { Articles2 } from '../articles2.state';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class Articles2Effects {
+
+  header = {
+    headers: new HttpHeaders({
+      'Content-type': 'application/json',
+    })
+  }
 
   constructor(private actions$: Actions,
     private http: HttpClient) { }
@@ -18,7 +25,7 @@ export class Articles2Effects {
     this.actions$.pipe(
       ofType(Article2Action.loadArticles2sRequested),
       mergeMap((res) => {
-        return this.http.get<Articles2[]>(environment.apiUrl + 'articles').pipe(
+        return this.http.get<Articles2[]>(environment.apiUrl + 'api/products', this.header).pipe(
           switchMap((data: Articles2[]) => {
             // console.log(data)
             return [
@@ -37,9 +44,6 @@ export class Articles2Effects {
       ofType(Article2Action.addArticles2sRequested),
       mergeMap((res) => {
         return this.http.post<Articles2>(environment.apiUrl + 'articles', res.payload).pipe(
-          tap(() => {
-            console.log('hello');
-          }),
           switchMap((data: Articles2) => {
             return [
               Article2Action.addArticles2sSucceeded({ payload: data })
@@ -67,6 +71,22 @@ export class Articles2Effects {
           })
         )
       })
-    )
-  )
+    ));
+
+  updateArticlesEffect$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(Article2Action.updateArticles2sRequested),
+      mergeMap((res) => {
+        return this.http.put<Articles2>(environment.apiUrl + `articles/${res.payload.articleId}`, res.payload.updateArticle).pipe(
+          switchMap((data: Articles2) => {
+            return [
+              Article2Action.updateArticles2sSucceeded({ payload: data })
+            ]
+          }),
+          catchError((error: Error) => {
+            return of(Article2Action.updateArticles2sFailure({ error: error }))
+          })
+        )
+      })
+    ))
 }

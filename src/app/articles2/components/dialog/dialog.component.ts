@@ -8,6 +8,7 @@ import { Articles2Service } from 'src/app/store/articles2.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DialogComponent implements OnInit {
   articles2!: Articles2[]
   articleForm!: FormGroup;
+  articles2$!: Observable<any>
   actionBtn: string = 'Save';
   header: string = 'Add Article';
 
@@ -67,23 +69,32 @@ export class DialogComponent implements OnInit {
           return false;
         }
       } else {
-        // this.updateArticle()
+        return false
       }
+    } else {
+      this.updateArticle()
     }
   }
 
-  // updateArticle() {
-  //   this.articles2Service.updateArticle(this.articleForm.value, this.editData.id)
-  //     .subscribe({
-  //       next: (res) => {
-  //         this.openSnackBar('Updated Successfully!', 'Close')
-  //         this.dialogRef.close('update')
-  //       },
-  //       error: (err) => {
-  //         this.openSnackBar('Error while updating!', 'Close')
-  //       }
-  //     })
-  // }
+  updateArticle() {
+    const data = {
+      title: this.articleForm.value.title,
+      shortDescription: this.articleForm.value.shortDescription,
+      longDescription: this.articleForm.value.longDescription
+    }
+    const getArticleId = this.editData.id
+    this.store.dispatch(Articles2Action.updateArticles2sRequested({ payload: { articleId: getArticleId, updateArticle: data } }))
+    this.articles2$ = this.store.select('articles2')
+    this.articles2$.subscribe({
+      next: (res) => {
+        this.openSnackBar('Updated Successfully!', 'Close')
+        this.dialogRef.close('update')
+      },
+      error: (err) => {
+        this.openSnackBar('Error while updating!', 'Close')
+      }
+    })
+  }
 
   openSnackBar(message: string, action: string) {
     let snackBarRef = this.snackBar.open(message, action, {
