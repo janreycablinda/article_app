@@ -37,7 +37,8 @@ export class AuthEffects {
             ]
           }),
           catchError((error: Error) => {
-            return of(AuthAction.loadAuthsFailure({ error: error }));
+            this.authService.handleAuthError(error);
+            return of(AuthAction.loadRequestedFailure({ error: error }));
           })
         )
       }
@@ -52,13 +53,14 @@ export class AuthEffects {
           switchMap((data: User) => {
             console.log(data);
             this.router.navigate(["/articles"]);
+            
             return [
               AuthAction.loginSucceededAction({ payload: data }),
             ]
           }),
           catchError((error: Error) => {
-            
-            return of(AuthAction.loadAuthsFailure({ error: error }));
+            this.authService.handleAuthError(error);
+            return of(AuthAction.loadRequestedFailure({ error: error }));
           })
         )
       }
@@ -76,13 +78,18 @@ export class AuthEffects {
               data.email,
               token
             );
+            if(token) {
+              if(this.router.url === '/login'){
+                this.router.navigate(["/articles"]);
+              }
+            }
             return [
               AuthAction.autoLoginSucceededAction({ payload: data }),
             ]
           }),
           catchError((error: Error) => {
-            
-            return of(AuthAction.loadAuthsFailure({ error: error }));
+            this.authService.handleAuthError(error);
+            return of(AuthAction.loadRequestedFailure({ error: error }));
           })
         )
       }
@@ -92,17 +99,15 @@ export class AuthEffects {
   authLogoutEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthAction.authLogoutRequestedAction),
     mergeMap((data) =>{
-      return this.http.post<User>('/api/auth/me', data).pipe(
-          switchMap((data: User) => {
-            console.log(data);
-            // this.router.navigate(["/articles"]);
+      return this.http.post<any>('/api/auth/logout', {}).pipe(
+          switchMap(() => {
+            this.authService.logOutUser();
             return [
-              AuthAction.loginSucceededAction({ payload: data }),
+              AuthAction.authLogoutSucceededAction(),
             ]
           }),
           catchError((error: Error) => {
-            
-            return of(AuthAction.loadAuthsFailure({ error: error }));
+            return of(AuthAction.loadRequestedFailure({ error: error }));
           })
         )
       }

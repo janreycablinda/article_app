@@ -42,9 +42,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('current_user').subscribe(res => {
-      console.log(res);
-    });
     
   }
 }

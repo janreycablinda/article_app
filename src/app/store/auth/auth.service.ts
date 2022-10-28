@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import * as AuthActions from './auth.actions'
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +9,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private tokenExpirationTimer: any;
 
-  constructor() { }
+  constructor(private router:Router, private store:Store) { }
 
   handleAuthentication(data: any){
     console.log(data);
@@ -14,13 +17,9 @@ export class AuthService {
     this.setLogoutTimer(data.expires_in * 1000);
   }
 
-  autoLogin(){
-    
-  }
-
   setLogoutTimer(expirationDuration: number){
     this.tokenExpirationTimer = setTimeout(() => {
-      // this.store.dispatch(new AuthActions.Logout());
+      this.store.dispatch(AuthActions.authLogoutRequestedAction());
     }, expirationDuration);
   }
 
@@ -30,4 +29,20 @@ export class AuthService {
       this.tokenExpirationTimer = null;
     }
   }
+
+  logOutUser(){
+    this.clearLogoutTimer();
+    this.router.navigate(["/login"]);
+    localStorage.removeItem('token');
+  }
+
+  handleAuthError(data: any){
+    console.log(data.statusText);
+    switch(data.statusText) {
+      case 'Unauthorized':
+        localStorage.removeItem('token');
+        this.router.navigate(["/login"]);
+        break;
+    }
+  } 
 }

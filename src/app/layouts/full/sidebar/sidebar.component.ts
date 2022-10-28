@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: []
+  styleUrls: ['./sidebar.component.scss']
 })
 export class AppSidebarComponent implements OnInit,OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
@@ -57,9 +57,8 @@ export class AppSidebarComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.currentUser$ = this.store.select('current_user');
     this.currentUser$.subscribe(res => {
-      console.log(res);
+      this.name = res.user.name;
     })
-    this.name = 'test2'
   }
 
   ngOnDestroy(): void {

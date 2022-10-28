@@ -32,6 +32,12 @@ export interface Menu {
 
 const MENUITEMS = [
     {
+        state: 'dashboard',
+        name: 'Dashboard',
+        type: 'link',
+        icon: 'assignment'
+    },
+    {
         state: 'articles',
         name: 'Articles',
         type: 'link',

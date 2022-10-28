@@ -19,7 +19,6 @@ import { CdkTableModule} from '@angular/cdk/table';
     DemoMaterialModule,
     FlexLayoutModule,
     RouterModule.forChild(ArticlesRoutes),
-    // MatTableDataSource,
     FormsModule,
     ReactiveFormsModule,
     CdkTableModule,
@@ -28,9 +27,6 @@ import { CdkTableModule} from '@angular/cdk/table';
   ],
   declarations: [
     ArticlesComponent,
-    // MatTableDataSource,
-    
-   
   ]
 })
 export class ArticlesModule {}

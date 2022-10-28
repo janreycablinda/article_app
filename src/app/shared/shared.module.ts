@@ -6,12 +6,14 @@ import {
   AccordionLinkDirective,
   AccordionDirective
 } from './accordion';
+import { SnackbarComponent } from './snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    AccordionDirective
+    AccordionDirective,
+    SnackbarComponent
   ],
   exports: [
     AccordionAnchorDirective,

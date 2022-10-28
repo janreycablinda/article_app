@@ -33,6 +33,7 @@ import { ArticlesEffects } from './store/articles/articles.effects';
 import { AuthEffects } from './store/auth/auth.effects';
 import { userReducer } from './store/auth/auth.reducer';
 import { CoreModule } from "./core.module";
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +54,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SpinnerComponent,
     AppSidebarComponent,
     LoginComponent,
-    AppBreadcrumbComponent
+    AppBreadcrumbComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

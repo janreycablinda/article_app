@@ -13,7 +13,7 @@ export const initialState: CurrentUserState = {
 export const userReducer = createReducer(
   initialState,
   on(AuthAction.loginSucceededAction, (state: CurrentUserState, { payload }) =>{
-    console.log(payload);
+
     const token:any = localStorage.getItem('token');
     const user = new User(
       payload.name,
@@ -23,7 +23,7 @@ export const userReducer = createReducer(
     return { ...state, user: payload, token: token};
   }),
   on(AuthAction.autoLoginSucceededAction, (state: CurrentUserState, { payload }) =>{
-    console.log(payload);
+
     const token:any = localStorage.getItem('token');
     const user = new User(
       payload.name,
@@ -32,7 +32,14 @@ export const userReducer = createReducer(
     );
     return { ...state, user: payload, token: token};
   }),
-  
+  on(AuthAction.authLogoutSucceededAction, (state: CurrentUserState) =>{
+    const user = new User('', '');
+    return { ...state, user: <User>{}, token: ''};
+  }),
+  on(AuthAction.loadRequestedFailure, (state: CurrentUserState) =>{
+    const user = new User('', '');
+    return { ...state, user: <User>{}, token: ''};
+  })
 );
 
 export function reducer(

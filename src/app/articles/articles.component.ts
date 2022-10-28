@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import * as ArticleActions from '../store/articles/articles.actions'
 import { selectArticles } from '../store/articles/articles.selectors';
 import { Article } from '../store/articles.state';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-articles',
@@ -14,7 +15,7 @@ import { Article } from '../store/articles.state';
   styleUrls: ['./articles.component.scss']
 })
 export class ArticlesComponent implements OnInit {
-  articles$!: Observable<any>;
+  private articles$!: Subscription;
   articles!: Element;
   formEdit: Boolean = false;
   article!: Article;
@@ -29,17 +30,9 @@ export class ArticlesComponent implements OnInit {
     
     this.store.dispatch(ArticleActions.loadArticlesRequestedAction());
 
-    // this.articles$ = this.store.pipe(select(selectArticles))
-    this.articles$ = this.store.select('articles');
-    // this.articles$ = this.store.select();
-    // this.articles$ = this.store.pipe(select(selectArticles))
-
-    this.articles$.subscribe(res => {
-      // console.log(res);
+    this.articles$ = this.store.select('articles').subscribe((res:any) => {
       this.dataSource = res.articles;
       if(this.formEdit){
-        console.log(this.formEdit);
-        console.log(true);
         if(Object.keys(res.selected_article).length !== 0){
           this._articleForm = this.formBuilder.group({
             id:  new FormControl(res.selected_article.id),
@@ -49,7 +42,6 @@ export class ArticlesComponent implements OnInit {
           });
         }
       }else{
-        console.log(false);
         this._articleForm = this.formBuilder.group({
           id:  new FormControl(""),
           title:  new FormControl(""),
@@ -57,14 +49,20 @@ export class ArticlesComponent implements OnInit {
           longDescription: new FormControl(""),
         });
       }
-      
     });
+
     this.articleForm();
   }
 
-  displayedColumns = ['id', 'title', 'short_description', 'long_description', 'actions'];
+  ngOnDestroy(): void {
+    if (this.articles$) {
+      this.articles$.unsubscribe();
+    }
+  }
+
+  displayedColumns = ['title', 'short_description', 'long_description', 'actions'];
   
-  _articleForm!: FormGroup; 
+  _articleForm!: FormGroup;
 
   articleForm(){
     this._articleForm = this.formBuilder.group({

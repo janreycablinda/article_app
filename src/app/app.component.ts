@@ -13,10 +13,8 @@ export class AppComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    if(token){
+    if(localStorage.getItem('token')){
       this.store.dispatch(AuthActions.autoLoginRequestedAction());
     }
   }
-
 }

@@ -13,17 +13,15 @@ export const loginRequestedAction = createAction(
 
 export const loginSucceededAction = createAction(
   '[Auth] Login Succeeded Action',
-  props<{ payload: User }>()
+  props<{ payload: any }>()
 );
 
 export const authLogoutRequestedAction = createAction(
-  '[Auth] Auto Logout Requested Action',
-  props<{ payload: any }>()
+  '[Auth] Auto Logout Requested Action'
 );
 
 export const authLogoutSucceededAction = createAction(
-  '[Auth] Auto Logout Succeeded Action',
-  props<{ payload: any }>()
+  '[Auth] Auto Logout Succeeded Action'
 );
 
 export const autoLoginRequestedAction = createAction(
@@ -50,7 +48,7 @@ export const loadAuthsSuccess = createAction(
   props<{ data: any }>()
 );
 
-export const loadAuthsFailure = createAction(
+export const loadRequestedFailure = createAction(
   '[Auth] Load Auths Failure',
   props<{ error: any }>()
 );
