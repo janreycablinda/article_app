@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Articles2, Articles2State } from '../articles2.state';
 import * as Articles2Action from './articles2.actions'
+// import { cloneDeep } from 'lodash';
 
 export const articles2FeatureKey = 'articles2';
 
@@ -17,7 +18,7 @@ export const Articles2Reducer = createReducer(
     }
   }),
   on(Articles2Action.addArticles2sSucceeded, (state: Articles2State, { payload }) => {
-
+    // const clone = cloneDeep(state.articles2);
     let data: Articles2 = {
       id: payload.id,
       title: payload.title,

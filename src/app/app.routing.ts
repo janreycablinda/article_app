@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { FullComponent } from './layouts/full/full.component';
 
 import { AuthGuard } from './auth.guard';
+import { LoginComponent } from './authentication/login/login.component';
+import { RegisterComponent } from './authentication/register/register.component';
 
 export const AppRoutes: Routes = [
     {
@@ -10,11 +12,6 @@ export const AppRoutes: Routes = [
         component: FullComponent,
         canActivate: [AuthGuard],
         children: [
-            {
-                path: '',
-                redirectTo: '/login',
-                pathMatch: 'full'
-            },
             {
                 path: 'material',
                 loadChildren: () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
@@ -29,8 +26,17 @@ export const AppRoutes: Routes = [
             },
         ]
     },
-    // {
-    //     path: 'login',
-    //     component: LoginComponent,
-    // }
+    {
+        path: 'login',
+        component: LoginComponent,
+    },
+    {
+        path: 'register',
+        component: RegisterComponent,
+    },
+    {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+    },
 ];
