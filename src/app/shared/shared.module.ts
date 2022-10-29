@@ -6,7 +6,7 @@ import {
   AccordionLinkDirective,
   AccordionDirective
 } from './accordion';
-import { SnackbarComponent } from './snackbar/snackbar.component';
+import { SnackbarComponent } from './notification/snackbar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,8 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    AccordionDirective
+    AccordionDirective,
+    SnackbarComponent
   ],
   providers: [MenuItems]
 })

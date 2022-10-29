@@ -20,28 +20,27 @@ import { UserData } from '../store/auth.state';
 })
 export class LoginComponent implements OnInit {
   msg = '';
-  constructor(
-    private service: MyserviceService, 
+  _articleForm!: FormGroup;
+
+  constructor( 
+    // private formBuilder: FormBuilder,
     private routes: Router,
     private store: Store<{ current_user: [any] }>
     ) { }
 
   check(username: string, password: string) {
-    const output = this.service.checkusernameandpassword(username, password);
-
+    
     const data: any = {
       username: username,
       password: password
     }
     this.store.dispatch(AuthAction.loginRequestedAction(data));
-    // if (output == true) {
-    //   this.routes.navigate(['/articles']);
-    // } else {  
-    //   this.msg = 'Invalid Username or Password';
-    // }
   }
 
   ngOnInit() {
-    
+    // this._articleForm = this.formBuilder.group({
+    //   username:  new FormControl(""),
+    //   password:  new FormControl(""),
+    // });
   }
 }

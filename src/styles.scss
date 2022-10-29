@@ -2,3 +2,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.notification-danger {
+    background:#E91E63 !important;
+}
+.notification-success {
+    background:#15C39A !important;
+}

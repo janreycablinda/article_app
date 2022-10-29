@@ -5,7 +5,6 @@ import { Element } from './articles.model';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as ArticleActions from '../store/articles/articles.actions'
-import { selectArticles } from '../store/articles/articles.selectors';
 import { Article } from '../store/articles.state';
 import { Subscription } from "rxjs";
 
@@ -27,10 +26,10 @@ export class ArticlesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
     this.store.dispatch(ArticleActions.loadArticlesRequestedAction());
 
     this.articles$ = this.store.select('articles').subscribe((res:any) => {
+      
       this.dataSource = res.articles;
       if(this.formEdit){
         if(Object.keys(res.selected_article).length !== 0){

@@ -10,6 +10,7 @@ import * as AuthAction from './auth.actions'
 import { AuthService } from './auth.service'
 import { Router } from "@angular/router";
 import { User } from './user.model';
+import * as NotificationAction from '../notification/notification.actions'
 
 @Injectable()
 export class AuthEffects {
@@ -38,7 +39,7 @@ export class AuthEffects {
           }),
           catchError((error: Error) => {
             this.authService.handleAuthError(error);
-            return of(AuthAction.loadRequestedFailure({ error: error }));
+            return of(NotificationAction.notificationResponse({payload: { type: 'authError', message: 'Username or Password is incorrect!' }}));
           })
         )
       }
@@ -60,7 +61,7 @@ export class AuthEffects {
           }),
           catchError((error: Error) => {
             this.authService.handleAuthError(error);
-            return of(AuthAction.loadRequestedFailure({ error: error }));
+            return of(NotificationAction.notificationResponse({payload: { type: 'authError', message: 'Username or Password is incorrect!' }}));
           })
         )
       }
@@ -89,7 +90,7 @@ export class AuthEffects {
           }),
           catchError((error: Error) => {
             this.authService.handleAuthError(error);
-            return of(AuthAction.loadRequestedFailure({ error: error }));
+            return of(NotificationAction.notificationResponse({payload: { type: 'authError', message: 'Username or Password is incorrect!' }}));
           })
         )
       }
@@ -107,7 +108,7 @@ export class AuthEffects {
             ]
           }),
           catchError((error: Error) => {
-            return of(AuthAction.loadRequestedFailure({ error: error }));
+            return of(NotificationAction.notificationResponse({payload: { type: 'authError', message: 'Ops, Something went wrong!' }}));
           })
         )
       }
