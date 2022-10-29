@@ -25,12 +25,7 @@ export const articleReducer = createReducer(
   on(articlesAction.addArticleSucceddedAction, (state: ArticlesState, { payload }) =>{
     let nextState = cloneDeep(state.articles);
 
-    let articles: ArticleDTO = {
-      id: payload.id,
-      title: payload.title,
-      short_description: payload.short_description,
-      long_description: payload.long_description
-    }
+    let articles: ArticleDTO = payload;
     
     nextState.push(articles);
     return { ...state, articles: nextState };

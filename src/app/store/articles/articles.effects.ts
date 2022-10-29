@@ -23,7 +23,6 @@ export class ArticlesEffects {
     mergeMap(res =>{
       return this.http.get<Article[]>('/api/data/articles').pipe(
           switchMap((data: Article[]) => {
-            console.log('effect', data)
             return [
               ArticleAction.loadArticlesSucceededAction({ payload: data })
             ]
