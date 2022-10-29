@@ -13,3 +13,5 @@ export const loadRegistersFailure = createAction(
   '[Register] Load Registers Failure',
   props<{ error: any }>()
 );
+
+

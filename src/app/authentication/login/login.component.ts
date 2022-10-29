@@ -2,14 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-const email = new FormControl('', Validators.required);
-const password = new FormControl('', Validators.required);
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  // providers: [MyserviceService]
 })
 export class LoginComponent implements OnInit {
   loginUserForm!: FormGroup;
@@ -19,8 +15,8 @@ export class LoginComponent implements OnInit {
 
   getLoginForm() {
     this.loginUserForm = this.formBuilder.group({
-      email: email,
-      password: password,
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   // check(uname: string, p: string) {
