@@ -28,17 +28,17 @@ export const Articles2Reducer = createReducer(
       ...payload
     }
   }),
-  // on(Articles2Action.addArticles2sSucceeded, (state: Articles2State, { payload }) => {
-  //   let data: Articles2 = {
-  //     id: payload.id,
-  //     name: payload.name,
-  //     image_link: payload.image_link,
-  //     description: payload.description,
-  //     price: payload.price
-  //   }
+  on(Articles2Action.addArticles2sSucceeded, (state: Articles2State, { payload }) => {
+    let data: Articles2 = {
+      id: payload.id,
+      name: payload.name,
+      image_link: payload.image_link,
+      description: payload.description,
+      price: payload.price
+    }
 
-  //   return { ...state, data }
-  // }),
+    return { ...state, payload: data }
+  }),
   // on(Articles2Action.deleteArticles2sRequested, (state: Articles2State, { id }) => {
   //   let getData = state.articles2
   //   let newData = getData.filter(item => item.id !== id)

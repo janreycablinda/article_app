@@ -90,7 +90,6 @@ export class DialogComponent implements OnInit {
         this.dialogRef.close('update')
       }
     })
-
   }
 
   openSnackBar(message: string, action: string) {

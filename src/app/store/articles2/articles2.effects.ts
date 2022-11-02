@@ -38,6 +38,7 @@ export class Articles2Effects {
       mergeMap((res) => {
         return this.http.post<Articles2>(environment.apiUrl + 'api/products', res.payload).pipe(
           switchMap((data: Articles2) => {
+            console.log(data);
             return [
               Article2Action.addArticles2sSucceeded({ payload: data })
             ]
