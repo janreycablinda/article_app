@@ -77,7 +77,7 @@ export class Articles2Component implements OnInit {
       data: row
     }).afterClosed().subscribe(val => {
       if (val === 'update') {
-
+        this.getAllArticle()
       }
     })
   }

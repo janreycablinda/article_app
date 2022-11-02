@@ -85,6 +85,11 @@ export class DialogComponent implements OnInit {
     const getArticleId = this.editData.id
     this.store.dispatch(Articles2Action.updateArticles2sRequested({ payload: { articleId: getArticleId, updateArticle: data } }))
     this.articles2$ = this.store.select('articles2')
+    this.articles2$.subscribe({
+      next: (res) => {
+        this.dialogRef.close('update')
+      }
+    })
 
   }
 
