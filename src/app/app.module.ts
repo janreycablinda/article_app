@@ -19,7 +19,7 @@ import { DemoMaterialModule } from './demo-material-module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { AuthGuard } from './auth.guard';
-import { tokenInterceptorService } from './store/token-interceptor.service';
+import { tokenInterceptorService } from './store/auth/token-interceptor.service';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';

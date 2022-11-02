@@ -1,12 +1,23 @@
 import { createReducer, on } from '@ngrx/store';
 import { Articles2, Articles2State } from '../articles2.state';
 import * as Articles2Action from './articles2.actions'
-// import { cloneDeep } from 'lodash';
 
 export const articles2FeatureKey = 'articles2';
 
 export const initialState: Articles2State = {
-  articles2: [],
+  data: <Articles2[]>{},
+  current_page: '',
+  first_page_url: '',
+  from: '',
+  last_page: '',
+  last_page_url: '',
+  links: '',
+  next_page_url: '',
+  path: '',
+  per_page: '',
+  prev_page_url: '',
+  to: '',
+  total: ''
 };
 
 export const Articles2Reducer = createReducer(
@@ -14,29 +25,29 @@ export const Articles2Reducer = createReducer(
   on(Articles2Action.loadArticles2sSucceeded, (state: Articles2State, { payload }) => {
     return {
       ...state,
-      articles2: payload
+      ...payload
     }
   }),
-  on(Articles2Action.addArticles2sSucceeded, (state: Articles2State, { payload }) => {
-    // const clone = cloneDeep(state.articles2);
-    let data: Articles2 = {
-      id: payload.id,
-      title: payload.title,
-      shortDescription: payload.shortDescription,
-      longDescription: payload.longDescription
-    }
+  // on(Articles2Action.addArticles2sSucceeded, (state: Articles2State, { payload }) => {
+  //   let data: Articles2 = {
+  //     id: payload.id,
+  //     name: payload.name,
+  //     image_link: payload.image_link,
+  //     description: payload.description,
+  //     price: payload.price
+  //   }
 
-    return { ...state, data }
-  }),
-  on(Articles2Action.deleteArticles2sRequested, (state: Articles2State, { id }) => {
-    let getData = state.articles2
-    let newData = getData.filter(item => item.id !== id)
+  //   return { ...state, data }
+  // }),
+  // on(Articles2Action.deleteArticles2sRequested, (state: Articles2State, { id }) => {
+  //   let getData = state.articles2
+  //   let newData = getData.filter(item => item.id !== id)
 
-    return { ...state, newData }
-  }),
+  //   return { ...state, newData }
+  // }),
   on(Articles2Action.updateArticles2sSucceeded, (state: Articles2State, { payload }) => {
-
-    let updateArticle = state.articles2.map((article2) => {
+    console.log(payload)
+    let updateArticle = state.data.map((article2) => {
       return payload.id === article2.id ? payload : article2;
     })
 

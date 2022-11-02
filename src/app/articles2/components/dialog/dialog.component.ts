@@ -3,13 +3,11 @@ import { Store } from '@ngrx/store';
 
 import * as Articles2Action from '../../../store/articles2/articles2.actions'
 import { Articles2 } from 'src/app/store/articles2.state';
-import { Articles2Service } from 'src/app/store/articles2.service';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-
 
 @Component({
   selector: 'app-dialog',
@@ -27,50 +25,50 @@ export class DialogComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogComponent>,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private store: Store<{ articles2: [any] }>,
-    private articles2Service: Articles2Service) { }
+    private store: Store<{ articles2: [any] }>) { }
 
   getArticleForm() {
     this.articleForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      shortDescription: ['', Validators.required],
-      longDescription: ['', Validators.required],
+      name: ['', Validators.required],
+      image_link: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', Validators.required],
+      is_published: ['', Validators.required]
     })
     if (this.editData) {
       this.header = 'Edit Article'
       this.actionBtn = 'Update';
-      this.articleForm.controls['title'].setValue(this.editData.title)
-      this.articleForm.controls['shortDescription'].setValue(this.editData.shortDescription)
-      this.articleForm.controls['longDescription'].setValue(this.editData.longDescription)
+      this.articleForm.controls['name'].setValue(this.editData.name)
+      this.articleForm.controls['image_link'].setValue(this.editData.image_link)
+      this.articleForm.controls['description'].setValue(this.editData.description)
+      this.articleForm.controls['price'].setValue(this.editData.price)
+      this.articleForm.controls['is_published'].setValue(this.editData.is_published)
     }
   }
 
   addArticle() {
-    if (!this.editData) {
-      if (this.articleForm.valid) {
-        const data = {
-          title: this.articleForm.value.title,
-          shortDescription: this.articleForm.value.shortDescription,
-          longDescription: this.articleForm.value.longDescription
-        }
-        this.store.dispatch(Articles2Action.addArticles2sRequested({ payload: data }))
-        if (data) {
-          this.articles2Service.fetchArticles().subscribe({
-            next: (res) => {
-              console.log("added", res.articles2)
-              this.openSnackBar('Added Successfully!', 'Close')
-              this.dialogRef.close()
-            },
-            error: (err) => {
-
-            }
-          })
-        } else {
-          return false;
-        }
-      } else {
-        return false
+    if (!this.editData && this.articleForm.valid) {
+      const data = {
+        name: this.articleForm.value.name,
+        image_link: this.articleForm.value.image_link,
+        description: this.articleForm.value.description,
+        price: this.articleForm.value.price,
       }
+      this.store.dispatch(Articles2Action.addArticles2sRequested({ payload: data }))
+      // if (data) {
+      //   this.articles2Service.fetchArticles().subscribe({
+      //     next: (res) => {
+      //       console.log("added", res.articles2)
+      //       this.openSnackBar('Added Successfully!', 'Close')
+      //       this.dialogRef.close()
+      //     },
+      //     error: (err) => {
+
+      //     }
+      //   })
+      // } else {
+      //   return false;
+      // }
     } else {
       this.updateArticle()
     }
@@ -78,22 +76,16 @@ export class DialogComponent implements OnInit {
 
   updateArticle() {
     const data = {
-      title: this.articleForm.value.title,
-      shortDescription: this.articleForm.value.shortDescription,
-      longDescription: this.articleForm.value.longDescription
+      name: this.articleForm.value.name,
+      image_link: this.articleForm.value.image_link,
+      description: this.articleForm.value.description,
+      price: this.articleForm.value.price,
+      is_published: this.articleForm.value.is_published
     }
     const getArticleId = this.editData.id
     this.store.dispatch(Articles2Action.updateArticles2sRequested({ payload: { articleId: getArticleId, updateArticle: data } }))
     this.articles2$ = this.store.select('articles2')
-    this.articles2$.subscribe({
-      next: (res) => {
-        this.openSnackBar('Updated Successfully!', 'Close')
-        this.dialogRef.close('update')
-      },
-      error: (err) => {
-        this.openSnackBar('Error while updating!', 'Close')
-      }
-    })
+
   }
 
   openSnackBar(message: string, action: string) {

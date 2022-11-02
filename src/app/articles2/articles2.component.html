@@ -40,30 +40,38 @@
               </mat-cell>
             </ng-container>
             <!-- Title Column -->
-            <ng-container matColumnDef="title">
+            <ng-container matColumnDef="name">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Title
+                Name
               </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                {{ element.title }}
+                {{ element.name }}
               </mat-cell>
             </ng-container>
             <!-- Short Description Column -->
-            <ng-container matColumnDef="shortDescription">
+            <ng-container matColumnDef="image_link">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Short Description
+                Image Link
               </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                {{ element.shortDescription }}
+                {{ element.image_link }}
               </mat-cell>
             </ng-container>
             <!-- Long Description Column -->
-            <ng-container matColumnDef="longDescription">
+            <ng-container matColumnDef="description">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Long Description
+                Description
               </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                {{ element.longDescription }}
+                {{ element.description }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Price
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.price }}
               </mat-cell>
             </ng-container>
             <!-- Action Column -->

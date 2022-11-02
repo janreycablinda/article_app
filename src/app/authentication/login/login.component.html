@@ -2,7 +2,7 @@
     <div class="login-register-box">
         <mat-card class="m-t-10">
         <mat-card-content>
-        <form [formGroup]="loginUserForm"  id="loginform">
+        <form [formGroup]="loginUserForm" (ngSubmit)="loginUser()" id="loginform">
             <div class="text-center">
                 <img alt="homepage" src="assets/images/logo-icon.png">
                 <h4 class="m-t-0">Login to App</h4>

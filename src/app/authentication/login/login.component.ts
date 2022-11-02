@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { AuthService } from 'src/app/store/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +12,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class LoginComponent implements OnInit {
   loginUserForm!: FormGroup;
 
-  constructor(private routes: Router,
-    private formBuilder: FormBuilder) { }
+  constructor(private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService) { }
 
   getLoginForm() {
     this.loginUserForm = this.formBuilder.group({
@@ -19,14 +22,24 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
-  // check(uname: string, p: string) {
-  //   const output = this.service.checkusernameandpassword(uname, p);
-  //   if (output == true) {
-  //     this.routes.navigate(['/articles']);
-  //   } else {
-  //     this.msg = 'Invalid Username or Password';
-  //   }
-  // }
+
+  loginUser() {
+    this.authService.getLoginUser(this.loginUserForm.value).subscribe({
+      next: data => {
+        if (data) {
+          this.authService.saveToken(data.token)
+          this.authService.saveUser(data)
+          this.loginUserForm.reset()
+          this.router.navigate(['articles2'])
+        } else {
+          return false;
+        }
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
+  }
 
   ngOnInit() {
     this.getLoginForm()

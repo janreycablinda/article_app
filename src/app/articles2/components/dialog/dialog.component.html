@@ -2,22 +2,30 @@
   <h1 mat-dialog-title>{{ header }}</h1>
   <div mat-dialog-content>
     <mat-form-field appearance="outline">
-      <mat-label>Title</mat-label>
-      <input matInput formControlName="title" placeholder="Ex. My Article" />
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Ex. My Article" />
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Short Description</mat-label>
+      <mat-label>Image Link</mat-label>
       <input
         matInput
-        formControlName="shortDescription"
+        formControlName="image_link"
         placeholder="Ex. My article is all about animals"
       />
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Long Description</mat-label>
+      <mat-label>Description</mat-label>
       <textarea
         matInput
-        formControlName="longDescription"
+        formControlName="description"
+        placeholder="Ex. This article talks about..."
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Price</mat-label>
+      <textarea
+        matInput
+        formControlName="price"
         placeholder="Ex. This article talks about..."
       ></textarea>
     </mat-form-field>
