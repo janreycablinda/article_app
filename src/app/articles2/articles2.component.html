@@ -1,0 +1,147 @@
+<div fxLayout="Column" fxLayoutGap="30px">
+  <mat-card>
+    <mat-card-content>
+      <!-- ================== Form Field =================== -->
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
+        <!-- =================== Table =============== -->
+        <div class="responsive-table">
+          <div class="topContainer">
+            <div class="searchBar">
+              <mat-form-field appearance="outline">
+                <mat-label>Search Article... </mat-label>
+                <input
+                  matInput
+                  placeholder=""
+                  search
+                  (keyup)="applyEvent($event)"
+                />
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="action">
+              <button
+                mat-raised-button
+                type="submit"
+                color="primary"
+                (click)="openDialog()"
+              >
+                Add Article
+              </button>
+            </div>
+          </div>
+          <mat-table #table [dataSource]="dataSource" matSort>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                ID.
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.id }}
+              </mat-cell>
+            </ng-container>
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Title
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.title }}
+              </mat-cell>
+            </ng-container>
+            <!-- Short Description Column -->
+            <ng-container matColumnDef="shortDescription">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Short Description
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.short_description }}
+              </mat-cell>
+            </ng-container>
+            <!-- Long Description Column -->
+            <ng-container matColumnDef="longDescription">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Long Description
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.long_description }}
+              </mat-cell>
+            </ng-container>
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <div class="actionContainer">
+                  <span
+                    class="editButton"
+                    mat-raised-button
+                    color="primary"
+                    (click)="onEditArticle(element)"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </span>
+                  <span
+                    class="deleteButton"
+                    mat-raised-button
+                    color="warn"
+                    (click)="onDeleteArticle(element.id)"
+                  >
+                    <mat-icon>delete_outline</mat-icon>
+                  </span>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+
+          <mat-paginator
+            [length]="100"
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </mat-card-content>
+    
+  </mat-card>
+</div>
+
+<!-- dialog form -->
+<ng-template #dialogForm>
+  <form [formGroup]="articleForm" (ngSubmit)="submitForm()">
+    <h1 mat-dialog-title>{{ header }}</h1>
+    <div mat-dialog-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" placeholder="Ex. My Article" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Short Description</mat-label>
+        <input
+          matInput
+          formControlName="shortDescription"
+          placeholder="Ex. My article is all about animals"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Long Description</mat-label>
+        <textarea
+          matInput
+          formControlName="longDescription"
+          placeholder="Ex. This article talks about..."
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions [align]="'end'">
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button mat-raised-button color="primary" [disabled]="!articleForm.valid">
+        {{ actionBtn }}
+      </button>
+    </div>
+  </form>  
+</ng-template>

@@ -19,7 +19,8 @@ export const articleReducer = createReducer(
   {
     return {
       ...state,
-      articles: payload
+      articles: payload,
+      selected_article: <Article>{}
     }
   }),
   on(articlesAction.addArticleSucceddedAction, (state: ArticlesState, { payload }) =>{

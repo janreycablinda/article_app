@@ -29,10 +29,13 @@ export const AppRoutes: Routes = [
                 loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule)
             },
             {
+                path: 'articles2',
+                loadChildren: () => import('./articles2/articles2.module').then(m => m.Articles2Module)
+            },
+            {
                 path: 'dashboard',
                 loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
             },
-            
         ]
     },
     {

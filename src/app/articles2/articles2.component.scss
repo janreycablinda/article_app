@@ -1,0 +1,67 @@
+.actionContainer {
+    margin: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .actionContainer span mat-icon{
+  font-size: 1.3rem;
+  }
+
+.responsive-table mat-header-cell, mat-cell{
+    text-align: center;
+    justify-content: center;
+  }
+
+.deleteButton {
+    font-size: 12px;
+    padding: 3px;
+  }
+  
+  .deleteButton:hover {
+    cursor: pointer;
+    color: #ffff;
+    background-color: red;
+    transition: ease-out 0.4s;
+  }
+
+.editButton {
+    font-size: 12px;
+    padding: 3px;
+  }
+  
+  .editButton:hover {
+    cursor: pointer;
+    color: #ffff;
+    background-color: rgb(0, 132, 255);
+    transition: ease-out 0.4s;
+  }
+
+.topContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.searchBar{
+  display: flex;
+  flex: 30%;
+  font-size: 0.7rem;
+  }
+
+  .searchBar mat-label{
+  font-size: 0.9rem;
+  }
+
+.action{
+  flex: 70%;
+  margin-right: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+
+  

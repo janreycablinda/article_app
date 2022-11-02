@@ -16,6 +16,6 @@ export class AppComponent implements OnInit{
     if(localStorage.getItem('token')){
       this.store.dispatch(AuthActions.autoLoginRequestedAction());
     }
-
+    
   }
 }

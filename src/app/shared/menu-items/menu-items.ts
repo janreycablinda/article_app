@@ -42,6 +42,12 @@ const MENUITEMS = [
         name: 'Articles',
         type: 'link',
         icon: 'assignment'
+    },
+    {
+        state: 'articles2',
+        name: 'Articles2',
+        type: 'link',
+        icon: 'assignment'
     }
 ];
 
