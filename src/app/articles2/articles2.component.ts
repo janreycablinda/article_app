@@ -27,7 +27,7 @@ export class Articles2Component implements OnInit {
   header: string = 'Add Article';
   editData: boolean = false;
   formEdit: Boolean = false;
-  private articles$!: Subscription;
+  articles$!: Subscription;
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -61,13 +61,10 @@ export class Articles2Component implements OnInit {
     
   }
 
-  applyEvent(event: Event){
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyEvent(event: any){
+    console.log(event.key);
+    const filterValue = event.key;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  addArticle(){
-    console.log(this.articleForm.value);
   }
 
    submitForm(){
@@ -95,6 +92,8 @@ export class Articles2Component implements OnInit {
       };
       this.store.dispatch(ArticleActions.updateArticleRequestedAction({payload: {articleId: data.id, updateArticleDTO: data }}));
       this.dialog.closeAll();
+      this.articleForm.reset();
+      this.articleForm.setErrors(null);
       this.formEdit = false;
     }
    }
@@ -109,7 +108,7 @@ export class Articles2Component implements OnInit {
     this.getArticleForm();
 
     this.store.dispatch(ArticleActions.loadArticlesRequestedAction());
-
+    
     this.articles$ = this.store.select('articles').subscribe((res:any) => {
       
       this.dataSource = res.articles;
@@ -126,6 +125,8 @@ export class Articles2Component implements OnInit {
         }
       }
     });
+
+    this.dataSource.paginator = this.paginator;
   }
 }
  
