@@ -36,7 +36,7 @@ export class Articles2Component implements OnInit {
     this.articles2$ = this.store.select('articles2');
     this.articles2$.subscribe({
       next: (res) => {
-        // console.log(res);
+        // console.log(res.data);
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -45,24 +45,14 @@ export class Articles2Component implements OnInit {
         this.openSnackBar('Error while fetching the data!', 'Close')
       }
     });
-
   }
 
   deleteArticle(id: number) {
     let del = window.confirm("Are you sure you want to delete this article?")
     if (del && id) {
       this.store.dispatch(Articles2Action.deleteArticles2sRequested({ id: id }))
-      // if (id) {
-      //   this.articles2Service.fetchArticles().subscribe({
-      //     next: (res) => {
-      //       console.log("deleted", res.articles2)
-      //       this.openSnackBar('Deleted Successfully!', 'Close')
-      //     },
-      //     error: (err) => {
-      //       this.openSnackBar('Error while deleting!', 'Close')
-      //     }
-      //   })
-      // }
+      this.getAllArticle()
+      this.openSnackBar('Deleted Successfully!', 'Close')
     } else {
       return false;
     }
@@ -76,7 +66,7 @@ export class Articles2Component implements OnInit {
     this.dialog.open(DialogComponent, {
       data: row
     }).afterClosed().subscribe(val => {
-      if (val === 'update') {
+      if (val === 'update' || 'add') {
         this.getAllArticle()
       }
     })
@@ -101,11 +91,6 @@ export class Articles2Component implements OnInit {
 
   ngOnInit(): void {
     this.getAllArticle()
-    // this.articles2Service.fetchArticles().subscribe({
-    //   next: (res) => {
-    //     this.getAllArticle()
-    //   }
-    // })
   }
 }
 

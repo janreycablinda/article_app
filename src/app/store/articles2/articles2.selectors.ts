@@ -5,5 +5,5 @@ export const selectArticles2FeatureState = createFeatureSelector<Articles2State>
 
 export const selectArticles2 = createSelector(
     selectArticles2FeatureState,
-    (state: Articles2State) => state.articles2
+    (state: Articles2State) => state.data
 )

@@ -1,5 +1,5 @@
 export interface Articles2 {
-    id?: any,
+    id?: number,
     name: string,
     image_link: string,
     description: string,

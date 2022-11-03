@@ -33,7 +33,7 @@ export class DialogComponent implements OnInit {
       image_link: ['', Validators.required],
       description: ['', Validators.required],
       price: ['', Validators.required],
-      is_published: ['', Validators.required]
+      is_published: ['']
     })
     if (this.editData) {
       this.header = 'Edit Article'
@@ -43,6 +43,8 @@ export class DialogComponent implements OnInit {
       this.articleForm.controls['description'].setValue(this.editData.description)
       this.articleForm.controls['price'].setValue(this.editData.price)
       this.articleForm.controls['is_published'].setValue(this.editData.is_published)
+    } else {
+      return false;
     }
   }
 
@@ -55,20 +57,8 @@ export class DialogComponent implements OnInit {
         price: this.articleForm.value.price,
       }
       this.store.dispatch(Articles2Action.addArticles2sRequested({ payload: data }))
-      // if (data) {
-      //   this.articles2Service.fetchArticles().subscribe({
-      //     next: (res) => {
-      //       console.log("added", res.articles2)
-      //       this.openSnackBar('Added Successfully!', 'Close')
-      //       this.dialogRef.close()
-      //     },
-      //     error: (err) => {
-
-      //     }
-      //   })
-      // } else {
-      //   return false;
-      // }
+      this.dialogRef.close('add')
+      this.openSnackBar('Added Successfully!', 'Close')
     } else {
       this.updateArticle()
     }
@@ -84,12 +74,8 @@ export class DialogComponent implements OnInit {
     }
     const getArticleId = this.editData.id
     this.store.dispatch(Articles2Action.updateArticles2sRequested({ payload: { articleId: getArticleId, updateArticle: data } }))
-    this.articles2$ = this.store.select('articles2')
-    this.articles2$.subscribe({
-      next: (res) => {
-        this.dialogRef.close('update')
-      }
-    })
+    this.dialogRef.close('update')
+    this.openSnackBar('Updated Successfully!', 'Close')
   }
 
   openSnackBar(message: string, action: string) {

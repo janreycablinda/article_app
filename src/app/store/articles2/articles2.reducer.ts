@@ -29,8 +29,8 @@ export const Articles2Reducer = createReducer(
     }
   }),
   on(Articles2Action.addArticles2sSucceeded, (state: Articles2State, { payload }) => {
+    console.log(payload)
     let data: Articles2 = {
-      id: payload.id,
       name: payload.name,
       image_link: payload.image_link,
       description: payload.description,
@@ -39,14 +39,13 @@ export const Articles2Reducer = createReducer(
 
     return { ...state, payload: data }
   }),
-  // on(Articles2Action.deleteArticles2sRequested, (state: Articles2State, { id }) => {
-  //   let getData = state.articles2
-  //   let newData = getData.filter(item => item.id !== id)
+  on(Articles2Action.deleteArticles2sRequested, (state: Articles2State, { id }) => {
+    let getData = state.data
+    let newData = getData.filter(item => item.id !== id)
 
-  //   return { ...state, newData }
-  // }),
+    return { ...state, newData }
+  }),
   on(Articles2Action.updateArticles2sSucceeded, (state: Articles2State, { payload }) => {
-    console.log(payload)
     let updateArticle = state.data.map((article2) => {
       return payload.id === article2.id ? payload : article2;
     })
