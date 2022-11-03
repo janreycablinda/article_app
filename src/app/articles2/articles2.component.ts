@@ -36,7 +36,7 @@ export class Articles2Component implements OnInit {
     this.articles2$ = this.store.select('articles2');
     this.articles2$.subscribe({
       next: (res) => {
-        // console.log(res.data);
+        // console.log(res);
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -51,7 +51,6 @@ export class Articles2Component implements OnInit {
     let del = window.confirm("Are you sure you want to delete this article?")
     if (del && id) {
       this.store.dispatch(Articles2Action.deleteArticles2sRequested({ id: id }))
-      this.getAllArticle()
       this.openSnackBar('Deleted Successfully!', 'Close')
     } else {
       return false;
@@ -91,6 +90,7 @@ export class Articles2Component implements OnInit {
 
   ngOnInit(): void {
     this.getAllArticle()
+    console.log(this.dataSource.data)
   }
 }
 

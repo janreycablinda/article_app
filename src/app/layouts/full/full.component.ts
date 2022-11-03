@@ -12,6 +12,7 @@ import { MenuItems } from '../../shared/menu-items/menu-items';
 
 
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { AuthService } from 'src/app/store/auth/auth.service';
 
 /** @title Responsive sidenav */
 @Component({
@@ -44,6 +45,7 @@ export class FullComponent implements OnDestroy {
 
 
   constructor(
+    private authService: AuthService,
     public router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
@@ -58,6 +60,10 @@ export class FullComponent implements OnDestroy {
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  ngOnInit(): void {
+    this.authService.autoLogout()
   }
 
 

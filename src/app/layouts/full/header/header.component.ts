@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/store/auth/auth.service';
+
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppHeaderComponent {
   public config: PerfectScrollbarConfigInterface = {};
-
+  private tokenExpirationTimer: any;
 
   // This is for Notifications
   notifications: Object[] = [
@@ -103,9 +108,16 @@ export class AppHeaderComponent {
     icon: 'de'
   }]
 
+  logOut() {
+    this.authService.signOut()
+    this.router.navigate(['/login'])
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer)
+    }
+  }
 
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private authService: AuthService, private router: Router) {
     translate.setDefaultLang('en');
   }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
 
@@ -10,12 +11,14 @@ const user_key = 'auth-user'
   providedIn: 'root'
 })
 export class AuthService {
+  private tokenExpirationTimer: any;
+
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getLoginUser(data: any) {
     return this.http.post<any>(environment.apiUrl + `api/login`, data, this.httpOptions)
@@ -44,7 +47,17 @@ export class AuthService {
     if (user) {
       return JSON.parse(user);
     }
-
     return {};
+  }
+
+  isLoggedIn() {
+    return this.getToken() != null;
+  }
+
+  autoLogout() {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.signOut();
+      this.router.navigate(['/login'])
+    }, 10000)
   }
 }

@@ -18,7 +18,7 @@ import { DemoMaterialModule } from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './store/auth/auth.guard';
 import { tokenInterceptorService } from './store/auth/token-interceptor.service';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
