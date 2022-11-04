@@ -52,8 +52,7 @@ export class AuthEffects {
       
       return this.http.get<User>('/api/auth/me').pipe(
           switchMap((data: User) => {
-            console.log(data);
-            this.router.navigate(["/articles"]);
+            this.router.navigate(["/dashboard"]);
             
             return [
               AuthAction.loginSucceededAction({ payload: data }),
@@ -81,7 +80,7 @@ export class AuthEffects {
             );
             if(token) {
               if(this.router.url === '/login'){
-                this.router.navigate(["/articles"]);
+                this.router.navigate(["/dashboard"]);
               }
             }
             return [

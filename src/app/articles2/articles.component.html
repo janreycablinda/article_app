@@ -58,12 +58,12 @@
               </mat-cell>
             </ng-container>
             <!-- Long Description Column -->
-            <ng-container matColumnDef="longDescription">
+            <ng-container matColumnDef="date">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Long Description
+                Created
               </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                {{ element.long_description }}
+                {{ element.created_at }}
               </mat-cell>
             </ng-container>
             <!-- Action Column -->
@@ -110,38 +110,3 @@
     
   </mat-card>
 </div>
-
-<!-- dialog form -->
-<ng-template #dialogForm>
-  <form [formGroup]="articleForm" (ngSubmit)="submitForm()">
-    <h1 mat-dialog-title>{{ header }}</h1>
-    <div mat-dialog-content>
-      <mat-form-field appearance="outline">
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title" placeholder="Ex. My Article" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Short Description</mat-label>
-        <input
-          matInput
-          formControlName="shortDescription"
-          placeholder="Ex. My article is all about animals"
-        />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Long Description</mat-label>
-        <textarea
-          matInput
-          formControlName="longDescription"
-          placeholder="Ex. This article talks about..."
-        ></textarea>
-      </mat-form-field>
-    </div>
-    <div mat-dialog-actions [align]="'end'">
-      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-      <button mat-raised-button color="primary" [disabled]="!articleForm.valid">
-        {{ actionBtn }}
-      </button>
-    </div>
-  </form>  
-</ng-template>

@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(ArticleActions.loadArticlesRequestedAction());
 
     this.articleObs$ = this.store.select('articles').subscribe((res:any) => {
-      console.log();
       this.articleCount = res.articles.length;
     });
     

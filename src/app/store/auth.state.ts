@@ -1,8 +1,9 @@
 import { User } from "./auth/user.model"
 
 export interface UserData {
-    username: string,
-    password: string
+    username: any,
+    password: any,
+    remember?: boolean
 };
 
 export interface CurrentUserState {

@@ -1,9 +1,18 @@
 
-<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
-    <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"> 
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5 manage-btn">
+    {{nameInitial}}
 </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
-    <button (click)="onLogout()" mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon> Sign Out
-    </button>
+    <div [align]="'middle'" class="profile">
+        <span class="profile-rounded">{{nameInitial}}</span>
+        <p class="p-t-20"><b>{{name}}</b></p>
+        <p>{{email}}</p>
+    </div>
+    <hr>
+    <div [align]="'middle'">
+        <button class="text-centered" (click)="onLogout()" mat-menu-item>
+            <span>Sign Out</span>
+        </button>
+    </div>
+    
 </mat-menu>

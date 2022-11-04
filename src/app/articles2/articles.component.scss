@@ -31,28 +31,28 @@
     padding: 3px;
   }
   
-  .editButton:hover {
-    cursor: pointer;
-    color: #ffff;
-    background-color: rgb(0, 132, 255);
-    transition: ease-out 0.4s;
-  }
+.editButton:hover {
+  cursor: pointer;
+  color: #ffff;
+  background-color: rgb(0, 132, 255);
+  transition: ease-out 0.4s;
+}
 
 .topContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .searchBar{
   display: flex;
   flex: 30%;
   font-size: 0.7rem;
-  }
+}
 
-  .searchBar mat-label{
+.searchBar mat-label{
   font-size: 0.9rem;
-  }
+}
 
 .action{
   flex: 70%;

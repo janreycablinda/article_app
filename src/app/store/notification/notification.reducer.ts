@@ -10,7 +10,6 @@ export const initialState: NotificationState = {
 export const notificationReducer = createReducer(
   initialState,
   on(Notification.notificationResponse, (state: NotificationState, { payload }) =>{
-    console.log(payload);
     return { ...state, ...payload};
   }),
 );

@@ -16,17 +16,15 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return this.store.select("current_user").pipe(
-      take(1),
+      take(1),  
       exhaustMap(() => {
         const token = localStorage.getItem('token');
         if (!token) {
           return next.handle(req);
         }
-        
         const modifiedRequest = req.clone({
           headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
         });
-        
         return next.handle(modifiedRequest);
       })
     );

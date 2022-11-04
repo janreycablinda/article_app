@@ -12,7 +12,6 @@ export class AuthService {
   constructor(private router:Router, private store:Store) { }
 
   handleAuthentication(data: any){
-    console.log(data);
     localStorage.setItem('token', data.access_token);
     this.setLogoutTimer(data.expires_in * 1000);
   }

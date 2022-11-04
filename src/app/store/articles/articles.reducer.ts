@@ -3,6 +3,7 @@ import { Articles, ArticlesState, ArticleDTO, ArticlesDTO, Article } from '../ar
 import * as articlesAction  from './articles.actions';
 import { cloneDeep } from 'lodash';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import * as moment from 'moment';
 
 export const articlesFeatureKey = 'articles';
 
@@ -17,18 +18,36 @@ export const articleReducer = createReducer(
   initialState,
   on(articlesAction.loadArticlesSucceededAction, (state: ArticlesState, { payload }) =>
   {
+    let articles:Article[] = [];
+    payload.forEach(res => {
+      articles.push({
+        id: res.id,
+        title: res.title,
+        short_description: res.short_description,
+        long_description: res.long_description,
+        created_at: moment(new Date(res.created_at), "YYYYMMDD").fromNow()
+      });
+    })
+
     return {
       ...state,
-      articles: payload,
+      articles: articles,
       selected_article: <Article>{}
     }
+    // return adapter.setAll(payload, state);
   }),
   on(articlesAction.addArticleSucceddedAction, (state: ArticlesState, { payload }) =>{
     let nextState = cloneDeep(state.articles);
 
-    let articles: ArticleDTO = payload;
+    let article: ArticleDTO = {
+        id: payload.id,
+        title: payload.title,
+        short_description: payload.short_description,
+        long_description: payload.long_description,
+        created_at: moment(new Date(payload.created_at), "YYYYMMDD").fromNow()
+    };
     
-    nextState.push(articles);
+    nextState.push(article);
     return { ...state, articles: nextState };
   }),
   on(articlesAction.loadSelectedArticleSucceededAction, (state: ArticlesState, { payload }) =>
@@ -50,8 +69,15 @@ export const articleReducer = createReducer(
     }
   }),
   on(articlesAction.updateArticleSuccededAction, (state: ArticlesState, { payload }) =>{
-    const updateArticle = state.articles.map((article)=> {
-      return payload.id === article.id ? payload : article;
+    let article: ArticleDTO = {
+      id: payload.id,
+      title: payload.title,
+      short_description: payload.short_description,
+      long_description: payload.long_description,
+      created_at: moment(new Date(payload.created_at), "YYYYMMDD").fromNow()
+    };
+    const updateArticle = state.articles.map((data)=> {
+      return article.id === data.id ? article : data;
     })
     return { ...state, articles: updateArticle };
   }),

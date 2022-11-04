@@ -7,7 +7,6 @@ import * as ArticleAction  from './articles.actions'
 import * as NotificationAction from '../notification/notification.actions'
 import { Article, ArticlesDTO, ArticleDTO } from '../articles.state'
 import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { NotificationState } from '../notification.state';
 
 @Injectable()
 export class ArticlesEffects {
@@ -87,7 +86,6 @@ export class ArticlesEffects {
   deleteArticleActionEffect$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(ArticleAction.deleteArticleRequestedAction),
     mergeMap(action =>{
-      console.log(action);
       return this.http.delete<number>(`/api/data/articles/${action.id}`).pipe(
           switchMap(res => [
             NotificationAction.notificationResponse({payload: { type: 'success', message: 'Successfully Deleted' }}),

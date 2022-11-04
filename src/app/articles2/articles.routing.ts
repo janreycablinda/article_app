@@ -9,7 +9,7 @@ export const ArticlesRoutes: Routes = [
 	data: {
       title: 'Articles',
       urls: [
-        { title: 'Articles', url: '/articles' },
+        { title: 'Dashboard', url: '/dashboard' },
         { title: 'Articles' }
       ]
     }

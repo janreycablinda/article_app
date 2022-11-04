@@ -27,7 +27,7 @@ export const loadSelectedArticleRequestedAction = createAction(
 
 export const loadSelectedArticleSucceededAction = createAction(
   '[Articles] Load Selected Succedded Article',
-  props<{ payload: Article }>()
+  props<{ payload: ArticleDTO }>()
 );
 
 export const deSelectArticleAction = createAction(

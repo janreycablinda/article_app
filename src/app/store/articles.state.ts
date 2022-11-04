@@ -4,14 +4,16 @@ export interface Article {
     id?: any,
     title: string,
     short_description: string,
-    long_description: string
+    long_description: string,
+    created_at?: any
 }
 
 export interface ArticleDTO {
     id?: any,
     title: string,
     short_description: string,
-    long_description: string
+    long_description: string,
+    created_at?: any
 };
 
 export interface Articles {

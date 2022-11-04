@@ -8,10 +8,7 @@ export const DashboardRoutes: Routes = [
     component: DashboardComponent,
 	data: {
       title: 'Dashboard',
-      urls: [
-        { title: 'Dashboard', url: '/dashboard' },
-        { title: 'Dashboard' }
-      ]
+      
     }
   }
 ];

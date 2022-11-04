@@ -35,17 +35,11 @@ const MENUITEMS = [
         state: 'dashboard',
         name: 'Dashboard',
         type: 'link',
-        icon: 'assignment'
+        icon: 'dashboard'
     },
     {
         state: 'articles',
         name: 'Articles',
-        type: 'link',
-        icon: 'assignment'
-    },
-    {
-        state: 'articles2',
-        name: 'Articles2',
         type: 'link',
         icon: 'assignment'
     }

@@ -13,7 +13,133 @@ $headingfont: 'Poppins', sans-serif;
 
 /*Material Theme Colors*/
 
-$primary: mat-palette($mat-blue, 600);
+
+/* colors */
+$curae-primary-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-primary-main: remove-color-opacity-on-white(#f58023);
+$curae-primary-light: remove-color-opacity-on-white(#ffb154);
+$curae-primary-dark: remove-color-opacity-on-white(#bc5100);
+$curae-primary-border: remove-color-opacity-on-white(#f5802380);
+$curae-secondary-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-secondary-main: remove-color-opacity-on-white(#ff505f);
+$curae-secondary-light: remove-color-opacity-on-white(#ff737f);
+$curae-secondary-dark: remove-color-opacity-on-white(#b23842);
+$curae-secondary-selected: remove-color-opacity-on-white(#ff505f14);
+$curae-secondary-border: remove-color-opacity-on-white(#ff505f80);
+$curae-text-primary: remove-color-opacity-on-white(#080d16de);
+$curae-text-secondary: remove-color-opacity-on-white(#00030f8a);
+$curae-text-disabled: remove-color-opacity-on-white(#080d1661);
+$curae-text-hint: remove-color-opacity-on-white(#080d1661);
+$curae-action-main: remove-color-opacity-on-white(#e5e5e6);
+$curae-action-disabled: remove-color-opacity-on-white(#080d1642);
+$curae-action-focus: remove-color-opacity-on-white(#0000001f);
+$curae-other-stroke: remove-color-opacity-on-white(#080d163b);
+$curae-other-white: remove-color-opacity-on-white(#ffffff);
+$curae-other-toolbar-txt: remove-color-opacity-on-white(#ffffff8a);
+$curae-other-backdrop: remove-color-opacity-on-white(#272c3680);
+$curae-other-divider: remove-color-opacity-on-white(#e2e3e4);
+$curae-other-active-rating: remove-color-opacity-on-white(#ffb400);
+$curae-other-snackbar: remove-color-opacity-on-white(#323232);
+$curae-info-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-info-main: remove-color-opacity-on-white(#5098d3);
+$curae-info-dark: remove-color-opacity-on-white(#0b79d0);
+$curae-info-light: remove-color-opacity-on-white(#64b6f7);
+$curae-info-border: remove-color-opacity-on-white(#5098d380);
+$curae-success-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-success-main: remove-color-opacity-on-white(#54b441);
+$curae-success-dark: remove-color-opacity-on-white(#1e8712);
+$curae-success-light: remove-color-opacity-on-white(#8be283);
+$curae-success-border: remove-color-opacity-on-white(#54b44180);
+$curae-error-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-error-main: remove-color-opacity-on-white(#de4f4f);
+$curae-error-light: remove-color-opacity-on-white(#ff8f8a);
+$curae-error-dark: remove-color-opacity-on-white(#952330);
+$curae-error-border: remove-color-opacity-on-white(#de4f4f80);
+$curae-warning-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-warning-main: remove-color-opacity-on-white(#ebc000);
+$curae-warning-dark: remove-color-opacity-on-white(#cca700);
+$curae-warning-light: remove-color-opacity-on-white(#fce84f);
+$curae-warning-border: remove-color-opacity-on-white(#ebc00080);
+$curae-background-paper: remove-color-opacity-on-white(#ffffff);
+$curae-grey-grey-50: remove-color-opacity-on-white(#fafafa);
+$curae-grey-grey-100: remove-color-opacity-on-white(#f5f5f5);
+$curae-grey-grey-200: remove-color-opacity-on-white(#eeeeee);
+$curae-grey-grey-300: remove-color-opacity-on-white(#e0e0e0);
+$curae-grey-grey-400: remove-color-opacity-on-white(#bdbdbd);
+$curae-grey-grey-500: remove-color-opacity-on-white(#9e9e9e);
+$curae-grey-grey-600: remove-color-opacity-on-white(#757575);
+$curae-grey-grey-700: remove-color-opacity-on-white(#616161);
+$curae-grey-grey-800: remove-color-opacity-on-white(#424242);
+$curae-grey-grey-900: remove-color-opacity-on-white(#212121);
+$curae-grey-black: remove-color-opacity-on-white(#000000);
+$curae-grey-grey-a-100: remove-color-opacity-on-white(#d5d5d5);
+$curae-grey-grey-a-200: remove-color-opacity-on-white(#aaaaaa);
+$curae-grey-grey-a-400: remove-color-opacity-on-white(#616161);
+$curae-grey-grey-a-700: remove-color-opacity-on-white(#303030);
+$curae-blush-main: remove-color-opacity-on-white(#d55d88);
+$curae-blush-dark: remove-color-opacity-on-white(#a44169);
+$curae-blush-light: remove-color-opacity-on-white(#f5bcd4);
+$curae-blush-border: remove-color-opacity-on-white(#db7b9e80);
+$curae-blush-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-blue-main: remove-color-opacity-on-white(#5c83c3);
+$curae-blue-dark: remove-color-opacity-on-white(#2765b0);
+$curae-blue-light: remove-color-opacity-on-white(#95b4ef);
+$curae-blue-border: remove-color-opacity-on-white(#5c83c380);
+$curae-blue-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-cyan-main: remove-color-opacity-on-white(#28beaa);
+$curae-cyan-dark: remove-color-opacity-on-white(#19776a);
+$curae-cyan-light: remove-color-opacity-on-white(#8be9dc);
+$curae-cyan-border: remove-color-opacity-on-white(#28beaa80);
+$curae-cyan-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-violet-main: remove-color-opacity-on-white(#564ca0);
+$curae-violet-dark: remove-color-opacity-on-white(#3a268c);
+$curae-violet-light: remove-color-opacity-on-white(#998cd9);
+$curae-violet-border: remove-color-opacity-on-white(#564ca080);
+$curae-violet-contrast-text: remove-color-opacity-on-white(#ffffff);
+$curae-background: remove-color-opacity-on-white(#f5802321);
+$curae-secondary-selected: remove-color-opacity-on-white(#ff505f14);
+$curae-primary-background: remove-color-opacity-on-white(#f5802321);
+$curae-blush-background: remove-color-opacity-on-white(#db7b9e21);
+$curae-blue-background: remove-color-opacity-on-white(#5c83c321);
+$curae-cyan-background: remove-color-opacity-on-white(#28beaa21);
+$curae-violet-background: remove-color-opacity-on-white(#564ca021);
+$curae-action-background: remove-color-opacity-on-white(#080d160f);
+$curae-action-disabled-bg: remove-color-opacity-on-white(#080d161f);
+$curae-other-backrgound-color: remove-color-opacity-on-white(#faf9f8);
+
+
+$cg-primary: (50: #fff0e0,
+    100: $curae-primary-light,
+    200: #ffc280,
+    300: #ffaa4d,
+    400: #ff9726,
+    500: $curae-primary-main,
+    600: #ff7d00,
+    700: $curae-primary-dark,
+    800: #ff6800,
+    900: #ff5500,
+    A100: #ffffff,
+    A200: #fff6f2,
+    A400: #ffd1bf,
+    A700: #ffbea6,
+    contrast: (50 : $curae-text-primary,
+        100 : $curae-text-primary,
+        200 : $curae-text-primary,
+        300 : $curae-text-primary,
+        400 : $curae-text-primary,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : $curae-text-primary,
+        A200 : $curae-text-primary,
+        A400 : $curae-text-primary,
+        A700 : $curae-text-primary,
+    ));
+
+// $primary: mat-palette($mat-blue, 600);
+$primary: mat-palette($cg-primary, 600);
 $accent: mat-palette($mat-indigo, 500);
 $warn: mat-palette($mat-pink, 500);
 $theme: mat-light-theme($primary, $accent, $warn);
@@ -41,12 +167,12 @@ $font-16: 16px;
 
 $light-text: #a6b7bf;
 $themecolor: #1e88e5;
-$themecolor-alt: #26c6da;
+$themecolor-alt: #FF7D00;
 $themecolor-dark: #028ee1;
 
 /*bootstrap Color*/
 $danger: #fc4b6c;
-$success: #26c6da;
+$success: #ff7d00;
 $warning: #ffb22b;
 $primary: #7460ee;
 $info: #1e88e5;

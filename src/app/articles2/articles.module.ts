@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Articles2Routes } from './articles2.routing';
+import { ArticlesRoutes } from './articles.routing';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -11,16 +11,16 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
-import { Articles2Component } from './articles2.component';
-
+import { DialogComponent } from './components/dialog/dialog.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ArticlesComponent } from './articles.component';
 
 @NgModule({
-  declarations: [Articles2Component, ],
+  declarations: [ArticlesComponent, DialogComponent],
 
   imports: [
     CommonModule,
-    RouterModule.forChild(Articles2Routes),
+    RouterModule.forChild(ArticlesRoutes),
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
@@ -31,6 +31,7 @@ import { Articles2Component } from './articles2.component';
     MatIconModule,
     MatSnackBarModule,
     MatPaginatorModule,
+    CKEditorModule
   ]
 })
-export class Articles2Module {}
+export class ArticlesModule {}
