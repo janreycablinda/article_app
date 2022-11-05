@@ -6,11 +6,9 @@ import * as AuthAction  from '../store/auth/auth.actions';
 import {
   FormBuilder,
   FormGroup,
-  Validators,
-  FormControl
+  Validators
 } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { UserData } from '../store/auth.state';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -20,16 +18,15 @@ import { UserData } from '../store/auth.state';
 })
 export class LoginComponent implements OnInit {
   msg = '';
-  _articleForm!: FormGroup;
+  _authForm!: FormGroup;
 
   constructor( 
     private formBuilder: FormBuilder,
-    private routes: Router,
-    private store: Store<{ current_user: [any] }>
+    private store: Store
     ) { }
 
   submitForm() {
-    var value = this._articleForm.value;
+    var value = this._authForm.value;
     const data: any = {
         username: value.username,
         password: value.password,
@@ -39,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._articleForm = this.formBuilder.group({
+    this._authForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
       remember: [false]
