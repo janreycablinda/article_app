@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ArticleActions from '../../../store/articles/articles.actions'
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-dialog',
@@ -18,8 +17,6 @@ export class DialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private store: Store<{ articles: [any] }>
   ) { }
-
-  public Editor = ClassicEditor;
 
   articleForm!: FormGroup;
   actionBtn: string = 'Save';

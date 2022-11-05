@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+// @import '~quill/dist/quill.core.css';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -24,4 +27,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .primary {
     background-color: #F58026;
+}
+
+.auth-spinner {
+    width: 30px !important;
+    height: 30px !important;
+    display: inline !important;
+}
+.auth-spinner svg {
+    width: 30px !important;
+    height: 30px !important;
 }

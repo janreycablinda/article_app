@@ -13,15 +13,7 @@
           placeholder="Ex. My article is all about animals"
         />
       </mat-form-field>
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Long Description</mat-label>
-        <textarea
-          matInput
-          formControlName="longDescription"
-          placeholder="Ex. This article talks about..."
-        ></textarea>
-      </mat-form-field> -->
-      <ckeditor formControlName="longDescription" [editor]="Editor"></ckeditor>
+      <quill-editor formControlName="longDescription"></quill-editor>
     </div>
     <div mat-dialog-actions [align]="'end'" class="m-b-5">
       <button mat-raised-button color="warn" mat-dialog-close>Close</button>

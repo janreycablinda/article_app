@@ -12,8 +12,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ArticlesComponent } from './articles.component';
+import { QuillModule } from 'ngx-quill';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [ArticlesComponent, DialogComponent],
@@ -31,7 +32,8 @@ import { ArticlesComponent } from './articles.component';
     MatIconModule,
     MatSnackBarModule,
     MatPaginatorModule,
-    CKEditorModule
+    QuillModule.forRoot(),
+    NgxSkeletonLoaderModule.forRoot()
   ]
 })
 export class ArticlesModule {}

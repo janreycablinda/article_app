@@ -29,14 +29,24 @@
               </button>
             </div>
           </div>
-          <mat-table #table [dataSource]="dataSource" matSort>
+          <ngx-skeleton-loader 
+          *ngIf="isLoading"
+          count="10" 
+          appearance="line"
+          [theme]="{ 
+            'border-radius': '5px',
+            height: '40px',
+            'background-color': '#EDF4F8'
+          }"
+          ></ngx-skeleton-loader>
+          <mat-table *ngIf="!isLoading" #table [dataSource]="dataSource" matSort>
             <!-- ID Column -->
             <ng-container matColumnDef="id">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
                 ID.
               </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                {{ element.id }}
+                <span>{{ element.id }}</span>
               </mat-cell>
             </ng-container>
             <!-- Title Column -->
@@ -104,6 +114,14 @@
             aria-label="Select page"
           >
           </mat-paginator>
+
+          <!-- <div *ngIf="isLoading" 
+            style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner 
+              color="primary" 
+              mode="indeterminate">
+            </mat-progress-spinner>
+          </div> -->
         </div>
       </div>
     </mat-card-content>

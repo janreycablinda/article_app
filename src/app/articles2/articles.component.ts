@@ -22,6 +22,8 @@ export class ArticlesComponent implements OnInit {
               private store: Store<{ articles: [any] }>
               ) { }
 
+  isLoading = true;
+
   articleForm!: FormGroup;
   articles$!: Subscription;
   
@@ -69,6 +71,12 @@ export class ArticlesComponent implements OnInit {
       this.dataSource = new MatTableDataSource(res.articles);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      
+      console.log(this.dataSource.paginator);
+      if(this.dataSource.paginator){
+        this.isLoading = false;
+      }
+      
       if(Object.keys(res.selected_article).length !== 0){
         this.dialog.open(DialogComponent, {
           data: res.selected_article
