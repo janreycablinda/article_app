@@ -2,7 +2,9 @@ import { Routes } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './login/login.component';
+import { ArticleResolverService } from './store/articles/article-resolver.service';
 import { AuthGuard } from './store/auth/auth.guard';
+
 
 export const AppRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,11 +24,17 @@ export const AppRoutes: Routes = [
             },
             {
                 path: 'articles',
-                loadChildren: () => import('./articles2/articles.module').then(m => m.ArticlesModule)
+                loadChildren: () => import('./articles2/articles.module').then(m => m.ArticlesModule),
+                resolve: {
+                    articlesResolver: ArticleResolverService
+                }
             },
             {
                 path: 'dashboard',
-                loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+                loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+                resolve: {
+                    articlesResolver: ArticleResolverService
+                }
             },
         ]
     },

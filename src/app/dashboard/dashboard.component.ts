@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
   articleCount!: number;
 
   ngOnInit(): void {
-    this.store.dispatch(ArticleActions.loadArticlesRequestedAction());
 
     this.articleObs$ = this.store.select('articles').subscribe((res:any) => {
       this.articleCount = res.articles.length;

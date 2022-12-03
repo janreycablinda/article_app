@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as ArticleActions from '../store/articles/articles.actions'
+import * as ArticleActions from '../store/articles/articles.actions';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from './components/dialog/dialog.component';
 
@@ -65,14 +65,13 @@ export class ArticlesComponent implements OnInit {
   ngOnInit(): void {
     this.getArticleForm();
 
-    this.store.dispatch(ArticleActions.loadArticlesRequestedAction());
+    // this.store.dispatch(ArticleActions.loadArticlesRequestedAction());
     
     this.articles$ = this.store.select('articles').subscribe((res:any) => {
       this.dataSource = new MatTableDataSource(res.articles);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       
-      console.log(this.dataSource.paginator);
       if(this.dataSource.paginator){
         this.isLoading = false;
       }
