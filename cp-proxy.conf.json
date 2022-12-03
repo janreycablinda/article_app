@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://article_backend.test",
+    "target": "http://article.janreygroup.site",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
