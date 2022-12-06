@@ -1,4 +1,8 @@
-import { User } from "./auth/user.model"
+export interface User {
+    name: string,
+    email: string,
+    access_token?: string,
+};
 
 export interface UserData {
     username: any,

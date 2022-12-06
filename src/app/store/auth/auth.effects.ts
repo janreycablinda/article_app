@@ -9,7 +9,7 @@ import { UserData, AuthResponsData } from '../auth.state';
 import * as AuthAction from './auth.actions'
 import { AuthService } from './auth.service'
 import { Router } from "@angular/router";
-import { User } from './user.model';
+import { User } from '../auth.state';
 import * as NotificationAction from '../notification/notification.actions'
 
 @Injectable()
@@ -73,11 +73,6 @@ export class AuthEffects {
       return this.http.get<User>('/api/auth/me').pipe(
           switchMap((data: User) => {
             const token:any = localStorage.getItem('token');
-            const user = new User(
-              data.name,
-              data.email,
-              token
-            );
             if(token) {
               if(this.router.url === '/login'){
                 this.router.navigate(["/dashboard"]);

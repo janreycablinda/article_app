@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { AuthResponsData, UserData } from '../auth.state';
-import { User } from './user.model';
 
 export const loadAuths = createAction(
   '[Auth] Load Auths'
